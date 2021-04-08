@@ -1,19 +1,21 @@
 
+
 form .row {
     margin-top: 20px;
 }
 
-.form-select {
-    max-width: 500px;
-    margin: 0 auto;
+form button {
+    color: white !important;
+    width: 200px;
 }
 
-.scheduling-text .row {
-    height: 100%;
-    align-items: center;
-}
+@media (max-width: 768px) {
+    .btn-form {
+        display: flex;
+        justify-content: center;
+    }
 
-.scheduling-text p {    
-    font-size: 1.5rem;
-    text-align: justify;
+    .btn-form button {
+        margin: 0 10px;
+    }
 }

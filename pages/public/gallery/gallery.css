@@ -1,0 +1,27 @@
+.carousel {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.carousel-item { height: 600px; }
+
+.carousel img { object-fit: cover; }
+
+.img-container img {
+    border-radius: 15px;
+    object-fit: cover;
+    transition: all .25s ease-in-out;
+    height: 300px;
+    width: 85%;
+}
+
+.img-container img:hover { transform: scale(1.1); }
+
+@media (max-width: 768px) {
+    .img-container img { width: 100%; }
+    .carousel-item { height: 400px; }
+}
+
+@media (min-width: 1200px) {
+    .carousel-item { height: 800px; }
+}

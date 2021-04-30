@@ -3,10 +3,6 @@ p {
     text-align: justify;
 }
 
-.bg-darkblue {
-    background-color: #1D2366;
-}
+.bg-darkblue { background-color: #1D2366; }
 
-#btn-login {
-    color: white;
-}
+.btn.bg-darkblue { color: white; }

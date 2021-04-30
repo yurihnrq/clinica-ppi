@@ -37,6 +37,9 @@
                     <li class="nav-item me-2">
                         <a class="nav-link" aria-current="page" href="../gallery">Galeria</a>
                     </li>
+                    <li class="nav-item me-2">
+                        <a class="nav-link" aria-current="page" href="../address/">Endereço</a>
+                    </li>
                     <li class="nav-item">
                         <a href="#" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#login-modal">
                             Entrar
@@ -76,65 +79,93 @@
         </div>
         <form action="#" class="mt-4">
             <h2>Formulário</h2>
+            <div class="row mb-3">
+                <div class="col-lg mb-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="name" name="name" placeholder=" ">
+                        <label for="name" class="form-label">Nome completo</label>
+                    </div>
+                </div>
+                <div class="col-lg mb-3">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="sched-email" name="email" placeholder=" ">
+                        <label for="sched-email" class="form-label">Email</label>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-floating">
+                        <select class="form-select" name="sex" id="sex"
+                            aria-label="Selecione a especialidade">
+                            <option selected disabled value=" ">Selecione uma opção</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Feminino</option>
+                            <option value="NA">Não especificar</option>
+                        </select>
+                        <label for="sex" class="form-label">Sexo:</label>
+                    </div>
+                </div>
+            </div>
             <div class="row">
+                <span class="text-muted">Preencha as informações acima para habilitar o restante do formulário.</span>
                 <div class="col-md my-1">
                     <div class="form-floating">
-                        <select class="form-select" name="specialty" id="specialty-select"
-                        aria-label="Selecione a especialidade">
+                        <select class="form-select" name="specialty" id="specialty"
+                            aria-label="Selecione a especialidade" disabled>
                             <option selected disabled>Selecione a especialidade</option>
                             <option value="1">Ortopedista</option>
                             <option value="2">Urologista</option>
                             <option value="3">Ginecologista</option>
                         </select>
-                        <label for="specialty-select" class="form-label">Especialidade:</label>
+                        <label for="specialty" class="form-label">Especialidade:</label>
                     </div>
                 </div>
                 <div class="col-md my-1">
                     <div class="form-floating">
-                        <select disabled class="form-select" name="doctor" id="doctor-select"
-                        aria-label="Selecione o médico">
+                        <select disabled class="form-select" name="doctor" id="doctor"
+                            aria-label="Selecione o médico">
                             <option selected disabled>Selecione um médico</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
-                        <label for="specialty-select" class="form-label">Médico:</label>
+                        <label for="doctor" class="form-label">Médico:</label>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md my-1">
                     <div class="form-floating">
-                        <input disabled type="date" name="sched-date" id="sched-date" class="form-control">
-                        <label for="sched-date" class="form-label">Data:</label>
+                        <input disabled type="date" name="date" id="date" class="form-control">
+                        <label for="date" class="form-label">Data:</label>
                     </div>
                 </div>
                 <div class="col-md my-1">
                     <div class="form-floating">
-                        <select disabled class="form-select" name="hour" id="hour-select" aria-label="Selecione o horário">
+                        <select disabled class="form-select" name="hour" id="hour"
+                            aria-label="Selecione o horário">
                             <option selected disabled>Selecione um horário</option>
                             <option value="1">15h00</option>
                             <option value="2">17h00</option>
                             <option value="3">18h30</option>
                         </select>
-                        <label for="hour-select" class="form-label">Horário:</label>
+                        <label for="hour" class="form-label">Horário:</label>
 
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col btn-form">
+            <div class="row my-3">
+                <div class="col form-btns">
+                    <button type="reset" class="btn btn-outline-dark me-3">
+                        Limpar
+                    </button>
                     <button type="submit" class="btn bg-darkblue">
                         Agendar
-                    </button>
-                    <button type="reset" class="btn bg-darkblue mx-2">
-                        Limpar
                     </button>
                 </div>
             </div>
         </form>
     </main>
-    
+
     <!-- Login Modal -->
     <div class="modal fade" id="login-modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -143,24 +174,26 @@
                     <h5 class="modal-title">Login</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form action="#" method="POST">
+                <form action="#" method="POST">
+                    <div class="modal-body">
                         <div class="col">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email:</label>
-                                <input id="email" type="email" class="form-control" placeholder="seuemail@mail.com" required>
+                                <input id="email" type="email" class="form-control" placeholder="seuemail@mail.com"
+                                    required>
                             </div>
                             <div>
                                 <label for="password" class="form-label">Senha:</label>
-                                <input id="password" type="password" class="form-control" placeholder="********" required>
+                                <input id="password" type="password" class="form-control" placeholder="********"
+                                    required>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" id="btn-login" class="btn bg-darkblue">Entrar</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" id="btn-login" class="btn bg-darkblue">Entrar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -169,6 +202,21 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
+    <script>
+        window.onload = _ => {
+            const schedForm = document.querySelector('main form');
+            const name = document.querySelector('#name');
+            const email = document.querySelector('#sched-email');
+            const sex = document.querySelector('#sex');
+
+            schedForm.addEventListener("input", _ => {
+                if (name.value.length >= 1 && email.value.length >= 1 && sex.value != " ")
+                    document.querySelector('#specialty').disabled = false;
+                else
+                    document.querySelector('#specialty').disabled = true;
+            });
+        };
+    </script>
 </body>
 
 </html>

@@ -35,6 +35,9 @@
                     <li class="nav-item me-2">
                         <a class="nav-link active" aria-current="page" href=".">Galeria</a>
                     </li>
+                    <li class="nav-item me-2">
+                        <a class="nav-link" aria-current="page" href="../address/">Endereço</a>
+                    </li>
                     <li class="nav-item">
                         <a href="#" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#login-modal">
                             Entrar
@@ -103,24 +106,26 @@
                     <h5 class="modal-title">Login</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form action="#" method="POST">
+                <form action="#" method="POST">
+                    <div class="modal-body">
                         <div class="col">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email:</label>
-                                <input id="email" type="email" class="form-control" placeholder="seuemail@mail.com" required>
+                                <input id="email" type="email" class="form-control" placeholder="seuemail@mail.com"
+                                    required>
                             </div>
                             <div>
                                 <label for="password" class="form-label">Senha:</label>
-                                <input id="password" type="password" class="form-control" placeholder="********" required>
+                                <input id="password" type="password" class="form-control" placeholder="********"
+                                    required>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" id="btn-login" class="btn bg-darkblue">Entrar</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" id="btn-login" class="btn bg-darkblue">Entrar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

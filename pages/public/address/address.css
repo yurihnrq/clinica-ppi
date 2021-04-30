@@ -1,4 +1,4 @@
-.form-btns button { width: 200px; }
+.form-btns button { width: 30%; }
 
 @media (max-width: 768px) {
     .form-btns {
@@ -6,4 +6,5 @@
         justify-content: center;
         gap: 1rem;
     }
+    .form-btns button { width: 40%; }
 }

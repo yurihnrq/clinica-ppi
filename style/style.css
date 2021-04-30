@@ -1,20 +1,8 @@
-#main-container {
-    margin-top: 1.5rem;
-}
-
 p {    
     font-size: 1.5rem;
     text-align: justify;
 }
 
-.bg-darkblue {
-    background-color: #1D2366;
-}
+.bg-darkblue { background-color: #1D2366; }
 
-.flex {
-    display: flex;
-}
-
-.row {
-    margin-bottom: 1.5rem;
-}
+.btn.bg-darkblue { color: white; }

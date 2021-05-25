@@ -2,6 +2,8 @@
 <html lang="pt-BR">
 
 <head>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,9 +12,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <!-- Common CSS -->
-    <link rel="stylesheet" href="../../../style/style.css">
-
-    <link rel="stylesheet" href="address.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="gallery.css">
     <title>Clínica</title>
 </head>
 
@@ -21,23 +22,22 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Clínica Blu</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="../../../">Home</a>
+                        <a class="nav-link" href="../">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="../scheduling/">Agendamento</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link" aria-current="page" href="../gallery">Galeria</a>
+                        <a class="nav-link active" aria-current="page" href=".">Galeria</a>
                     </li>
                     <li class="nav-item me-2">
-                        <a class="nav-link active" aria-current="page" href=".">Endereço</a>
+                        <a class="nav-link" aria-current="page" href="../address/">Endereço</a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#login-modal">
@@ -56,54 +56,45 @@
         </div>
     </nav>
     <main class="container mt-4">
-        <h1>Adicionar endereço</h1>
-        <p>Realize aqui a adição do seu endereço. 🗺</p>
-        <div class="row">
-            <div class="col d-flex align-items-center">
-                <form action="#" class="w-100">
-                    <div class="row mb-3">
-                        <div class="col-md-4 mb-3">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="cep" name="cep" placeholder=" "
-                                    pattern="\d{5}\-\d{3}\" required>
-                                <label for="cep" class="form-label">CEP</label>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="address" name="address" placeholder=" " required>
-                                <label for="address" class="form-label">Endereço</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="city" name="city" placeholder=" " required>
-                                <label for="city" class="form-label">Cidade</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="state" name="state" placeholder=" " required>
-                                <label for="state" class="form-label">Estado</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col form-btns">
-                            <button type="reset" class="btn btn-outline-dark me-3">
-                                Limpar
-                            </button>
-                            <button type="submit" class="btn bg-darkblue">
-                                Enviar
-                            </button>
-                        </div>
-                    </div>
-                </form>
+        <h1>Galeria</h1>
+        <p>Aqui você pode conferir algumas fotos do nosso ambiente hospitalar. 🥰</p>
+        <div class="row align-items-center mb-3">
+            <div class="col-md mb-3 d-none d-lg-block ">
+                <img class="img-fluid" src="../svg/undraw_Organize_photos.svg" alt="Galery illustration">
             </div>
-            <div class="col d-none d-lg-block">
-                <img src="../../../svg/undraw_My_location.svg" alt="Location svg" class="img-fluid">
+            <div class="col-md img-container d-flex flex-column align-items-center">
+                <img src="../images/h5-pixpoetry-unsplash.jpg" alt="..." class="img-fluid mb-3">
+                <img src="../images/h6-macau-photo-agency-unsplash.jpg" alt="..." class="img-fluid">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm d-flex align-items-center justify-content-center mb-3">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="../images/h1-adhy-savala-unsplash.jpg" class="d-block w-100 h-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../images/h2-arseny-togulev-unsplash.jpg" class="d-block w-100 h-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="../images/h3-walter-otto-unsplash.jpg" class="d-block w-100 h-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
             </div>
         </div>
     </main>

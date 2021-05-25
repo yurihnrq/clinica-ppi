@@ -8,3 +8,5 @@ p {
 .bg-darkblue { background-color: #1D2366; }
 
 .btn.bg-darkblue { color: white; }
+
+.btn.bg-darkblue:hover { background-color: #121d9c; }

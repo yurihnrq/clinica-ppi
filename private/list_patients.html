@@ -2,6 +2,8 @@
 <html lang="pt-BR">
 
 <head>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +15,8 @@
     <link rel="stylesheet" href="../style/style.css">
 
     <link rel="stylesheet" href="./css/dashboard.css">
+
+    <link rel="stylesheet" href="./css/list.css">
 
     <title>Clínica</title>
 </head>
@@ -43,7 +47,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./list_workes.html">
+                        <a class="nav-link" href="./list_workers.html">
                             <i class="bi bi-person-badge me-2"></i>
                             Listar funcionários
                         </a>
@@ -95,56 +99,100 @@
                     <li>
                         <a href="./worker.html" class="nav-link">
                             <i class="bi bi-journal-plus me-2"></i>
-                            Novo funcionário
+                            <span class="d-lg-inline d-none">Novo funcionário</span>
                         </a>
                     </li>
                     <li>
                         <a href="./patient.html" class="nav-link">
                             <i class="bi bi-person-plus me-2"></i>
-                            Novo paciente
+                            <span class="d-lg-inline d-none">Novo paciente</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./list_workes.html" class="nav-link">
+                        <a href="./list_workers.html" class="nav-link">
                             <i class="bi bi-person-badge me-2"></i>
-                            Listar funcionários
+                            <span class="d-lg-inline d-none">Listar funcionários</span>
                         </a>
                     </li>
                     <li>
                         <a href="#" class="nav-link active">
                             <i class="bi bi-person-lines-fill me-2"></i>
-                            Listar pacientes
+                            <span class="d-lg-inline d-none">Listar pacientes</span>
                         </a>
                     </li>
                     <li>
                         <a href="./adresses.html" class="nav-link">
                             <i class="bi bi-signpost-2 me-2"></i>
-                            Listar endereços
+                            <span class="d-lg-inline d-none">Listar endereços</span>
                         </a>
                     </li>
                     <li>
                         <a href="./schedules.html" class="nav-link">
                             <i class="bi bi-card-list me-2"></i>
-                            Listar todos agendamentos
+                            <span class="d-lg-inline d-none">Listar todos agendamentos</span>
                         </a>
                     </li>
                     <li>
                         <a href="./personal_schedules.html" class="nav-link">
                             <i class="bi bi-card-checklist me-2"></i>
-                            Listar meus agendamentos
+                            <span class="d-lg-inline d-none">Listar meus agendamentos</span>
                         </a>
                     </li>
                     <hr class="bg-white">
                     <li>
                         <a href="#" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
-                            Sair
+                            <span class="d-lg-inline d-none">Sair</span>
                         </a>
                     </li>
                 </ul>
             </div>
-            <div class="col">
+            <div class="col p-5">
                 <h1>Pacientes</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Contato</th>
+                            <th scope="col">Endereço</th>
+                            <th scope="col">Info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>João Victor</td>
+                            <td>joão@mail.com / 34 9 9999-5555</td>
+                            <td>
+                                <div class="dropdown dropdown-menu-end d-inline">
+                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        🗺
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-item">CEP</li>
+                                        <li class="dropdown-item">Rua teste 3, 666</li>
+                                        <li class="dropdown-item">Uberlândia</li>
+                                        <li class="dropdown-item">MG</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dropdown dropdown-menu-end ms-2 d-inline">
+                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                        📃
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-item">Sexo: Masculino</li>
+                                        <li class="dropdown-item">Peso: 75Kg</li>
+                                        <li class="dropdown-item">Altura: 179cm</li>
+                                        <li class="dropdown-item">Sangue: T</li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>

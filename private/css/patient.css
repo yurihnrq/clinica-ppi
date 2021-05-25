@@ -1,0 +1,7 @@
+form { width: 80%; }
+
+@media (max-width: 680px) {
+    form { width: 100% !important }
+}
+
+#doctor-info { display: none; }

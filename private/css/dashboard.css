@@ -1,0 +1,31 @@
+.side-menu {
+    height: 100vh;
+    max-width: fit-content;
+}
+
+a .text-muted{ font-size: 1rem;}
+
+.side-menu .nav-link { color: #AAA!important; }
+.side-menu .nav-link:hover { color: #DDD!important; }
+
+.side-menu .nav-link.active {
+    background-color: transparent !important;
+    color: white !important;
+    border: 1px solid white;
+}
+
+@media (max-height: 445px) {
+    .side-menu { 
+        height: fit-content;
+        padding-bottom: 1rem;
+    }
+}
+
+@media (min-width: 768px) {
+    body { overflow-y: hidden; }
+
+    .side-menu + div {
+        overflow: auto;
+        height: 100vh;
+    }
+}

@@ -21,7 +21,7 @@ window.onload = _ => {
         xhr.responseType = "json";
 
         xhr.onload = _ => {
-
+            
         }
     });
 

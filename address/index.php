@@ -1,3 +1,33 @@
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    require "mysqlConnection.php";
+    $pdo = mysqlConnect();
+
+    $cep = $address = $city = $state = "";
+
+    if(isset($_POST["cep"])) $cep = $_POST["cep"];
+    if(isset($_POST["address"])) $address = $_POST["address"];
+    if(isset($_POST["city"])) $city = $_POST["city"];
+    if(isset($_POST["state"])) $state = $_POST["state"];
+
+    $sql = <<<SQL
+        INSERT INTO base_de_enderecos_ajax (cep, logradouro, cidade, estado)
+        VALUES (?, ?, ?, ?)
+    SQL;
+
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$cep, $address, $city, $state]);
+    }
+    catch (Exception $e) {
+        exit('Falha inesperada: ' . $e->getMessage());
+    }
+}
+
+?>
+
 <!doctype html>
 <html lang="pt-BR">
 
@@ -62,7 +92,7 @@
         <p>Realize aqui a adição do seu endereço. 🗺</p>
         <div class="row">
             <div class="col d-flex align-items-center">
-                <form action="#" class="w-100">
+                <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> class="w-100" method="POST">
                     <div class="row mb-3">
                         <div class="col-md-4 mb-3">
                             <div class="form-floating">

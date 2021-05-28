@@ -57,7 +57,7 @@ $pdo = mysqlConnect();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./list_workers.html">
+                        <a class="nav-link" href="./list_workers.php">
                             <i class="bi bi-person-badge me-2"></i>
                             Listar funcionários
                         </a>
@@ -119,7 +119,7 @@ $pdo = mysqlConnect();
                         </a>
                     </li>
                     <li>
-                        <a href="./list_workers.html" class="nav-link">
+                        <a href="./list_workers.php" class="nav-link">
                             <i class="bi bi-person-badge me-2"></i>
                             <span class="d-lg-inline d-none">Listar funcionários</span>
                         </a>

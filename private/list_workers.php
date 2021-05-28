@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./list_workes.html">
+                        <a class="nav-link" href="#">
                             <i class="bi bi-person-badge me-2"></i>
                             Listar funcionários
                         </a>
@@ -160,57 +160,66 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Yuri Henrique</td>
-                            <td>email@mail.com / 34 9 9999-9999</td>
-                            <td>
-                                <div class="dropdown dropdown-menu-end d-inline">
-                                    <button class="dropdown-toggle" type="button"
-                                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        🗺
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li class="dropdown-item">CEP</li>
-                                        <li class="dropdown-item">Rua teste 1, 123</li>
-                                        <li class="dropdown-item">Uberlândia</li>
-                                        <li class="dropdown-item">MG</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="dropdown dropdown-menu-end d-inline ms-2">
-                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                        Sim 📃
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li class="dropdown-item">Ortopedista</li>
-                                        <li class="dropdown-item">CRM</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Antônio Fernandes</td>
-                            <td>antonio@mail.com / 34 9 9999-8888</td>
-                            <td>
-                                <div class="dropdown dropdown-menu-end d-inline">
-                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                        🗺
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li class="dropdown-item">CEP</li>
-                                        <li class="dropdown-item">Rua teste 2, 222</li>
-                                        <li class="dropdown-item">Uberlândia</li>
-                                        <li class="dropdown-item">MG</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>
-                                Não
-                            </td>
-                        </tr>
+                        <?php
+
+                            require_once "mysqlConnection.php";
+                            $pdo = mysqlConnect();
+
+                            $sql = <<<SQL
+                                SELECT pessoa.nome, pessoa.email, pessoa.telefone, pessoa.cep, pessoa.logradouro, pessoa.cidade, pessoa.estado, medico.especialidade, medico.crm
+                                FROM pessoa
+                                INNER JOIN funcionario ON pessoa.codigo = funcionario.codigo
+                                LEFT JOIN medico ON funcionario.codigo = medico.codigo
+                            SQL;
+
+                            $stmt = $pdo->prepare($sql);
+                            $stmt->execute();
+
+                            $counter = 1;
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                $nome = $row["nome"];
+                                $email = $row["email"];
+                                $telefone = $row["telefone"];
+                                $cep = $row["cep"];
+                                $logradouro = $row["logradouro"];
+                                $cidade = $row["cidade"];
+                                $estado = $row["estado"];
+                                $especialidae = $row["especialidade"];
+                                $crm = $row["crm"];
+
+                                echo "<tr>";
+                                echo "<th scope=\"row\">{$counter}</th>";
+                                echo "<td>{$nome}</td>";
+                                echo "<td>{$email} / {$telefone}</td>";
+                                echo "<td>";
+                                echo "<div class=\"dropdown dropdown-menu-end d-inline\">";
+                                echo "<button class=\"dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton1\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">🗺</button>";
+                                echo '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">';
+                                echo "<li class=\"dropdown-item\">{$cep}</li>";
+                                echo "<li class=\"dropdown-item\">{$logradouro}</li>";
+                                echo "<li class=\"dropdown-item\">{$cidade}</li>";
+                                echo "<li class=\"dropdown-item\">{$estado}</li>";
+                                echo '</ul>';
+                                echo '</div>';
+                                echo "</td>";
+                                if($crm != null) {
+                                    echo '<td>';
+                                    echo '<div class="dropdown dropdown-menu-end d-inline ms-2">';
+                                    echo '<button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">Sim 📃</button>';
+                                    echo '<ul class="dropdown-menu">';
+                                    echo "<li class=\"dropdown-item\">{$especialidae}</li>";
+                                    echo "<li class=\"dropdown-item\">{$crm}</li>";
+                                    echo '</ul>';
+                                    echo '</td>';
+                                }
+                                else {
+                                    echo '<td>Não</td>';
+                                }
+                                echo "</tr>";
+
+                                $counter = $counter + 1;
+                            }
+                        ?>
                     </tbody>
                 </table>
             </div>

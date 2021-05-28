@@ -1,3 +1,14 @@
+<?php
+
+require_once "authentication.php";
+require_once "mysqlConnection.php";
+
+$pdo = mysqlConnect();
+
+// exitWhenNotLogged($pdo);
+
+?>
+
 <!doctype html>
 <html lang="pt-BR">
 
@@ -18,6 +29,7 @@
 
     <title>Clínica</title>
 </head>
+
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-darkblue d-md-none">

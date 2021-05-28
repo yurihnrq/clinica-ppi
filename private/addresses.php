@@ -57,7 +57,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./adresses.html">
+                        <a class="nav-link" href="#">
                             <i class="bi bi-signpost-2 me-2"></i>
                             Listar endereços
                         </a>
@@ -158,20 +158,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>XXXXX-XXX</td>
-                            <td>Rua teste 4</td>
-                            <td>Uberlândia</td>
-                            <td>MG</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>38400-XXX</td>
-                            <td>Rua teste 5</td>
-                            <td>São Paulo</td>
-                            <td>SP</td>
-                        </tr>
+                        <?php
+
+                        require_once "mysqlConnection.php";
+
+                        $sql = <<<SQL
+                            SELECT cep, logradouro, cidade, estado
+                            FROM base_de_enderecos_ajax
+                        SQL;
+
+                        $pdo = mysqlConnect();
+                        $stmt = $pdo->query($sql, PDO::FETCH_ASSOC);
+
+                        $counter = 1;
+                        while($row = $stmt->fetch()) {
+                            $cep = $row["cep"];
+                            $logradouro = $row["logradouro"];
+                            $cidade = $row["cidade"];
+                            $estado = $row["estado"];
+                            echo "<tr>";
+                            echo "<th scope=\"row\">{$counter}</th>";
+                            echo "<td>{$cep}</td>";
+                            echo "<td>{$logradouro}</td>";
+                            echo "<td>{$cidade}</td>";
+                            echo "<td>{$estado}</td>";
+                            echo "</tr>";
+                            $counter = $counter + 1;
+                        }
+
+                        ?>
                     </tbody>
                 </table>
             </div>

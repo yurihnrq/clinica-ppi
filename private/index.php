@@ -69,7 +69,7 @@ $pdo = mysqlConnect();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./adresses.html">
+                        <a class="nav-link" href="./addresses.php">
                             <i class="bi bi-signpost-2 me-2"></i>
                             Listar endereços
                         </a>
@@ -131,7 +131,7 @@ $pdo = mysqlConnect();
                         </a>
                     </li>
                     <li>
-                        <a href="./adresses.html" class="nav-link">
+                        <a href="./addresses.php" class="nav-link">
                             <i class="bi bi-signpost-2 me-2"></i>
                             <span class="d-lg-inline d-none">Listar endereços</span>
                         </a>

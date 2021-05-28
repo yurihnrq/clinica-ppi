@@ -249,14 +249,14 @@
                     <div class="row" id="doctor-info">
                         <div class="col mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="specialty" name="specialty" placeholder=" " required>
+                                <input type="text" class="form-control" id="specialty" name="specialty" placeholder=" ">
                                 <label for="specialty" class="form-label">Especialidade</label>
                             </div>
                         </div>
                         <div class="col mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="specialty" name="specialty" placeholder=" " required>
-                                <label for="specialty" class="form-label">CRM</label>
+                                <input type="text" class="form-control" id="crm" name="crm" placeholder=" ">
+                                <label for="crm" class="form-label">CRM</label>
                             </div>
                         </div>
                     </div>
@@ -267,6 +267,12 @@
                         <button type="submit" class="btn bg-darkblue">
                             Enviar
                         </button>
+                    </div>
+                    <div class="alert alert-success mt-3 result-message" id="registerSuccess" role="alert">
+                        Funcionário cadastrado com sucesso!
+                    </div>
+                    <div class="alert alert-danger mt-3 result-message" id="registerFail" role="alert">
+                        Falha ao cadastrar funcionário!
                     </div>
                 </form>
             </div>

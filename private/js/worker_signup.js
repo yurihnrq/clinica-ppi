@@ -11,7 +11,6 @@ function getAddress(cep) {
         if (xhr.status != 200) {
             console.error("Falha inesperada: " + xhr.responseText);
         }
-
         if (xhr.response === null) {
             console.error("Resposta não obtida");
             return ;
@@ -52,11 +51,37 @@ window.onload = _ => {
 
         const data = new FormData(form);
         const xhr = new XMLHttpRequest();
-        xhr.responseType = "json";
 
-        xhr.onload = _ => {
-            
+        if(doctorCheck.checked === false) {
+            xhr.open("POST", "./sql/save_worker.php")
+            xhr.onload = _ => {
+                if(xhr.responseText !== "success") {
+                    document.getElementById("registerFail").style.display = "block";
+                    document.getElementById("registerSuccess").style.display = "none";
+                    console.error("Não foi possível cadastrar o funcionário.\n" + xhr.responseText);
+                }
+                else {
+                    document.getElementById("registerFail").style.display = "none";
+                    document.getElementById("registerSuccess").style.display = "block";
+                    console.info("Funcionário salvo com sucesso!");
+                }
+            }
         }
+        else {
+            xhr.open("POST", "./sql/save_doctor.php")
+            xhr.onload = _ => {
+                if(xhr.responseText !== "success") {
+                    resultFail = document.getElementById("registerFail").style.display = "block";
+                    console.error("Não foi possível cadastrar o funcionário.\n" + xhr.responseText);
+                }
+                else {
+                    resultFail = document.getElementById("registerSuccess").style.display = "block";
+                    console.info("Funcionário salvo com sucesso!");
+                }
+            }
+        }
+
+        xhr.send(data);
     });
 
 }

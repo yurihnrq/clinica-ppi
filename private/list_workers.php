@@ -183,8 +183,7 @@ exitWhenNotLogged($pdo);
                                 LEFT JOIN medico ON funcionario.codigo = medico.codigo
                             SQL;
 
-                            $stmt = $pdo->prepare($sql);
-                            $stmt->execute();
+                            $stmt = $pdo->query($sql);
 
                             $counter = 1;
                             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

@@ -255,6 +255,12 @@ exitWhenNotLogged($pdo);
                             Enviar
                         </button>
                     </div>
+                    <div class="alert alert-success mt-3 result-message" id="registerSuccess" role="alert">
+                        Paciente cadastrado com sucesso!
+                    </div>
+                    <div class="alert alert-danger mt-3 result-message" id="registerFail" role="alert">
+                        Falha ao cadastrar paciente!
+                    </div>
                 </form>
             </div>
         </div>
@@ -265,6 +271,8 @@ exitWhenNotLogged($pdo);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
+    
+    <script src="./js/patient_signup.js"></script>
 </body>
 
 </html>

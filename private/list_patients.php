@@ -171,37 +171,64 @@ exitWhenNotLogged($pdo);
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>João Victor</td>
-                            <td>joão@mail.com / 34 9 9999-5555</td>
-                            <td>
-                                <div class="dropdown dropdown-menu-end d-inline">
-                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                        🗺
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li class="dropdown-item">CEP</li>
-                                        <li class="dropdown-item">Rua teste 3, 666</li>
-                                        <li class="dropdown-item">Uberlândia</li>
-                                        <li class="dropdown-item">MG</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="dropdown dropdown-menu-end ms-2 d-inline">
-                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                        📃
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li class="dropdown-item">Sexo: Masculino</li>
-                                        <li class="dropdown-item">Peso: 75Kg</li>
-                                        <li class="dropdown-item">Altura: 179cm</li>
-                                        <li class="dropdown-item">Sangue: T</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php
+
+                            require_once "mysqlConnection.php";
+                            $pdo = mysqlConnect();
+
+                            $sql = <<<SQL
+                                SELECT nome, email, telefone, cep, logradouro, cidade, estado, sexo, peso, altura, tipo_sanguineo
+                                FROM pessoa INNER JOIN paciente ON pessoa.codigo = paciente.codigo
+                            SQL;
+
+                            $stmt = $pdo->query($sql);
+
+                            $counter = 1;
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                $nome = $row["nome"];
+                                $email = $row["email"];
+                                $telefone = $row["telefone"];
+                                $cep = $row["cep"];
+                                $logradouro = $row["logradouro"];
+                                $cidade = $row["cidade"];
+                                $estado = $row["estado"];
+                                $sexo = $row["sexo"];
+                                $peso = $row["peso"];
+                                $altura = $row["altura"];
+                                $tipoSanguineo = $row["tipo_sanguineo"];
+
+                                echo '<tr>';
+                                echo "<th scope=\"row\">{$counter}</th>";
+                                echo "<td>{$nome}</td>";
+                                echo "<td>{$email} / {$telefone}</td>";
+                                echo '<td>';
+                                echo '<div class="dropdown dropdown-menu-end d-inline">';
+                                echo '<button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">🗺</button>';
+                                echo '<ul class="dropdown-menu">';
+                                echo "<li class=\"dropdown-item\">{$cep}</li>";
+                                echo "<li class=\"dropdown-item\">{$logradouro}</li>";
+                                echo "<li class=\"dropdown-item\">{$cidade}</li>";
+                                echo "<li class=\"dropdown-item\">{$estado}</li>";
+                                echo '</ul>';
+                                echo '</div>';
+                                echo '</td>';
+                                echo '<td>';
+                                echo '<div class="dropdown dropdown-menu-end ms-2 d-inline">';
+                                echo '<button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">📃</button>';
+                                echo '<ul class="dropdown-menu">';
+                                echo "<li class=\"dropdown-item\">Sexo: {$sexo}</li>";
+                                echo "<li class=\"dropdown-item\">Peso: {$peso}</li>";
+                                echo "<li class=\"dropdown-item\">Altura: {$altura}</li>";
+                                echo "<li class=\"dropdown-item\">Sangue: {$tipoSanguineo}</li>";
+                                echo '</ul>';
+                                echo '</div>';
+                                echo '</td>';
+                                echo '</tr>';
+
+                                $counter = $counter + 1;
+                            }
+                        ?>
+
                     </tbody>
                 </table>
             </div>

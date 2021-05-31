@@ -45,6 +45,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../style/style.css">
 
     <link rel="stylesheet" href="address.css">
+    <style>
+        .result-message {
+            display: none;
+        }
+    </style>
+
     <title>Clínica</title>
 </head>
 
@@ -141,36 +147,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </main>
 
     <!-- Login Modal -->
-    <div class="modal fade" id="login-modal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="login-modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Login</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="#" method="POST">
-                    <div class="modal-body">
-                        <div class="col">
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email:</label>
-                                <input id="email" type="email" class="form-control" placeholder="seuemail@mail.com"
-                                    required>
-                            </div>
-                            <div>
-                                <label for="password" class="form-label">Senha:</label>
-                                <input id="password" type="password" class="form-control" placeholder="********"
-                                    required>
-                            </div>
+                <div class="modal-body">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input id="email" type="email" name="email" class="form-control" placeholder="seuemail@mail.com"
+                                required>
+                        </div>
+                        <div>
+                            <label for="password" class="form-label">Senha:</label>
+                            <input id="password" type="password" name="password" class="form-control" placeholder="********"
+                                required>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Fechar</button>
-                        <button type="submit" id="btn-login" class="btn bg-darkblue">Entrar</button>
+                    <div class="alert alert-danger result-message mt-3" id="loginFail" role="alert">
+                        Senha ou e-mail incorretos!
                     </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Fechar</button>
+                    <button id="btn-login" data-backdrop="static" class="btn bg-darkblue">Entrar</button>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        window.onload = () => {
+            const loginBtn = document.getElementById("btn-login");
+            const emailInput = document.getElementById("email");
+            const passwordInput = document.getElementById("password");
+            loginBtn.addEventListener("click", e => {
+                const data = new FormData();
+                data.append("email", emailInput.value);
+                data.append("password", passwordInput.value);
+                
+
+                let xhr = new XMLHttpRequest();
+
+                xhr.open("POST", "../private/login.php");
+
+                xhr.onload = _ => {
+                    if (xhr.responseText === "success") {
+                        window.location = "../private/index.php";
+                    }
+                    else {
+                        console.log(xhr.responseText);
+                        document.getElementById("loginFail").style.display = "block";
+                        passwordInput.value = "";
+                        passwordInput.focus();
+                    }
+                }
+
+                xhr.send(data);
+            })
+        }
+    </script>
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"

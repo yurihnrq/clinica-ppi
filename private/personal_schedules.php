@@ -159,7 +159,10 @@ exitWhenNotLogged($pdo);
                 </ul>
             </div>
             <div class="col p-5">
-                <h1>Agendamentos de User</h1>
+                <?php
+                    $email = $_SESSION["email"];
+                    echo "<h1>Agendamentos de $email</h1>"
+                ?>
                 <table class="table">
                     <thead>
                         <tr>

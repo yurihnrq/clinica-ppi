@@ -1,3 +1,14 @@
+<?php
+
+require_once "authentication.php";
+require_once "mysqlConnection.php";
+
+session_start();
+$pdo = mysqlConnect();
+exitWhenNotLogged($pdo);
+
+?>
+
 <!doctype html>
 <html lang="pt-BR">
 
@@ -16,7 +27,7 @@
 
     <link rel="stylesheet" href="./css/dashboard.css">
 
-    <link rel="stylesheet" href="./css/worker.css">
+    <link rel="stylesheet" href="./css/patient.css">
     <title>Clínica</title>
 </head>
 
@@ -34,50 +45,50 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="./worker.html">
+                        <a class="nav-link" href="./worker.php">
                             <i class="bi bi-journal-plus me-2"></i>
                             Novo funcionário
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./patient.html">
+                        <a class="nav-link" href="#">
                             <i class="bi bi-person-plus me-2"></i>
                             Novo paciente
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./list_workers.html">
+                        <a class="nav-link" href="./list_workers.php">
                             <i class="bi bi-person-badge me-2"></i>
                             Listar funcionários
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./list_patients.html">
+                        <a class="nav-link" href="./list_patients.php">
                             <i class="bi bi-person-lines-fill me-2"></i>
                             Listar pacientes
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./adresses.html">
+                        <a class="nav-link" href="./addresses.php">
                             <i class="bi bi-signpost-2 me-2"></i>
                             Listar endereços
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./schedules.html">
+                        <a class="nav-link" href="./schedules.php">
                             <i class="bi bi-card-list me-2"></i>
                             Listar todos agendamentos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./personal_schedules.html">
+                        <a class="nav-link" href="./personal_schedules.php">
                             <i class="bi bi-card-checklist me-2"></i>
                             Listar meus agendamentos
                         </a>
                     </li>
                     <hr class="bg-white">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             Sair
                         </a>
@@ -96,50 +107,50 @@
                 </a>
                 <ul class="nav nav-pills flex-column mt-3 mb-auto">
                     <li>
-                        <a href="#" class="nav-link active">
+                        <a href="./worker.php" class="nav-link">
                             <i class="bi bi-journal-plus me-2"></i>
                             <span class="d-lg-inline d-none">Novo funcionário</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./patient.html" class="nav-link">
+                        <a href="#" class="nav-link active">
                             <i class="bi bi-person-plus me-2"></i>
                             <span class="d-lg-inline d-none">Novo paciente</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./list_workers.html" class="nav-link">
+                        <a href="./list_workers.php" class="nav-link">
                             <i class="bi bi-person-badge me-2"></i>
                             <span class="d-lg-inline d-none">Listar funcionários</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./list_patients.html" class="nav-link">
+                        <a href="./list_patients.php" class="nav-link">
                             <i class="bi bi-person-lines-fill me-2"></i>
                             <span class="d-lg-inline d-none">Listar pacientes</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./adresses.html" class="nav-link">
+                        <a href="./addresses.php" class="nav-link">
                             <i class="bi bi-signpost-2 me-2"></i>
                             <span class="d-lg-inline d-none">Listar endereços</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./schedules.html" class="nav-link">
+                        <a href="./schedules.php" class="nav-link">
                             <i class="bi bi-card-list me-2"></i>
                             <span class="d-lg-inline d-none">Listar todos agendamentos</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./personal_schedules.html" class="nav-link">
+                        <a href="./personal_schedules.php" class="nav-link">
                             <i class="bi bi-card-checklist me-2"></i>
                             <span class="d-lg-inline d-none">Listar meus agendamentos</span>
                         </a>
                     </li>
                     <hr class="bg-white">
                     <li>
-                        <a href="#" class="nav-link">
+                        <a href="logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             <span class="d-lg-inline d-none">Sair</span>
                         </a>
@@ -148,7 +159,7 @@
             </div>
             <div class="col p-5">
                 <form action="#" class="mx-auto" method="POST">
-                    <h1 class="mb-4">Cadastro de funcionário</h1>
+                    <h1 class="mb-4">Cadastro de paciente</h1>
                     <div class="row">
                         <div class="col-xl-8 mb-3">
                             <div class="form-floating">
@@ -214,49 +225,25 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm mb-3">
+                        <div class="col-lg-4 mb-3">
                             <div class="form-floating">
-                                <input type="date" class="form-control" id="starting-date" name="starting-date"
-                                    placeholder=" " required>
-                                <label for="starting-date" class="form-label">Data de início</label>
-                            </div>
-                        </div>
-                        <div class="col-sm mb-3">
-                            <div class="form-floating">
-                                <input type="number" class="form-control" id="salary" name="salary" placeholder=" "
-                                    min="0" required>
-                                <label for="salary" class="form-label">Salário</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="password" name="password" placeholder=" "
+                                <input type="number" class="form-control" id="weight" name="weight" placeholder=" "
                                     required>
-                                <label for="password" class="form-label">Senha</label>
+                                <label for="weight" class="form-label">Peso</label>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col mb-3">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="doctor" value="true">
-                                <label class="form-check-label" for="doctor">Médico</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" id="doctor-info">
-                        <div class="col mb-3">
+                        <div class="col-lg-4 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="specialty" name="specialty" placeholder=" " required>
-                                <label for="specialty" class="form-label">Especialidade</label>
+                                <input type="number" class="form-control" id="height" name="height" placeholder=" "
+                                    required>
+                                <label for="height" class="form-label">Altura</label>
                             </div>
                         </div>
-                        <div class="col mb-3">
+                        <div class="col-lg-4 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="specialty" name="specialty" placeholder=" " required>
-                                <label for="specialty" class="form-label">CRM</label>
+                                <input type="text" class="form-control" id="blood" name="blood" placeholder=" "
+                                    required>
+                                <label for="blood" class="form-label">Tipo sanguíneo</label>
                             </div>
                         </div>
                     </div>
@@ -268,6 +255,12 @@
                             Enviar
                         </button>
                     </div>
+                    <div class="alert alert-success mt-3 result-message" id="registerSuccess" role="alert">
+                        Paciente cadastrado com sucesso!
+                    </div>
+                    <div class="alert alert-danger mt-3 result-message" id="registerFail" role="alert">
+                        Falha ao cadastrar paciente!
+                    </div>
                 </form>
             </div>
         </div>
@@ -278,7 +271,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
-    <script src="./js/worker_signup.js"></script>
+    
+    <script src="./js/patient_signup.js"></script>
 </body>
 
 </html>

@@ -1,3 +1,14 @@
+<?php
+
+require_once "authentication.php";
+require_once "mysqlConnection.php";
+
+session_start();
+$pdo = mysqlConnect();
+exitWhenNotLogged($pdo);
+
+?>
+
 <!doctype html>
 <html lang="pt-BR">
 
@@ -16,13 +27,15 @@
 
     <link rel="stylesheet" href="./css/dashboard.css">
 
+    <link rel="stylesheet" href="./css/list.css">
+
     <title>Clínica</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-darkblue d-md-none">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href=".">
                 Clínica Blu <span class="text-muted">Dashboard</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -33,50 +46,50 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="./worker.html">
+                        <a class="nav-link" href="./worker.php">
                             <i class="bi bi-journal-plus me-2"></i>
                             Novo funcionário
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./patient.html">
+                        <a class="nav-link" href="./patient.php">
                             <i class="bi bi-person-plus me-2"></i>
                             Novo paciente
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./list_workers.html">
+                        <a class="nav-link" href="#">
                             <i class="bi bi-person-badge me-2"></i>
                             Listar funcionários
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./list_patients.html">
+                        <a class="nav-link" href="./list_patients.php">
                             <i class="bi bi-person-lines-fill me-2"></i>
                             Listar pacientes
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./adresses.html">
+                        <a class="nav-link" href="./addresses.php">
                             <i class="bi bi-signpost-2 me-2"></i>
                             Listar endereços
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./schedules.html">
+                        <a class="nav-link" href="./schedules.php">
                             <i class="bi bi-card-list me-2"></i>
                             Listar todos agendamentos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./personal_schedules.html">
+                        <a class="nav-link" href="./personal_schedules.php">
                             <i class="bi bi-card-checklist me-2"></i>
                             Listar meus agendamentos
                         </a>
                     </li>
                     <hr class="bg-white">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             Sair
                         </a>
@@ -88,92 +101,137 @@
     <main class="container-fluid border-1">
         <div class="row">
             <div class="d-flex flex-column flex-shrink-0 p-3 text-white d-md-block d-none bg-darkblue side-menu">
-                <a class="navbar-brand text-white" href="#">
+                <a class="navbar-brand text-white" href=".">
                     Clínica Blu
                     <br>
                     <span class="text-muted">Dashboard</span>
                 </a>
                 <ul class="nav nav-pills flex-column mt-3 mb-auto">
                     <li>
-                        <a href="./worker.html" class="nav-link">
+                        <a href="./worker.php" class="nav-link">
                             <i class="bi bi-journal-plus me-2"></i>
                             <span class="d-lg-inline d-none">Novo funcionário</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./patient.html" class="nav-link">
+                        <a href="./patient.php" class="nav-link">
                             <i class="bi bi-person-plus me-2"></i>
                             <span class="d-lg-inline d-none">Novo paciente</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./list_workers.html" class="nav-link">
+                        <a href="#" class="nav-link active">
                             <i class="bi bi-person-badge me-2"></i>
                             <span class="d-lg-inline d-none">Listar funcionários</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./list_patients.html" class="nav-link">
+                        <a href="./list_patients.php" class="nav-link">
                             <i class="bi bi-person-lines-fill me-2"></i>
                             <span class="d-lg-inline d-none">Listar pacientes</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./adresses.html" class="nav-link">
+                        <a href="./addresses.php" class="nav-link">
                             <i class="bi bi-signpost-2 me-2"></i>
                             <span class="d-lg-inline d-none">Listar endereços</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./schedules.html" class="nav-link">
+                        <a href="./schedules.php" class="nav-link">
                             <i class="bi bi-card-list me-2"></i>
                             <span class="d-lg-inline d-none">Listar todos agendamentos</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./personal_schedules.html" class="nav-link">
+                        <a href="./personal_schedules.php" class="nav-link">
                             <i class="bi bi-card-checklist me-2"></i>
                             <span class="d-lg-inline d-none">Listar meus agendamentos</span>
                         </a>
                     </li>
                     <hr class="bg-white">
                     <li>
-                        <a href="#" class="nav-link">
+                        <a href="logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             <span class="d-lg-inline d-none">Sair</span>
                         </a>
                     </li>
                 </ul>
             </div>
-            <div class="col">
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
+            <div class="col p-5">
+                <h1>Funcionários</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Contato</th>
+                            <th scope="col">Endereço</th>
+                            <th scope="col">Médico</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+
+                            require_once "mysqlConnection.php";
+                            $pdo = mysqlConnect();
+
+                            $sql = <<<SQL
+                                SELECT pessoa.nome, pessoa.email, pessoa.telefone, pessoa.cep, pessoa.logradouro, pessoa.cidade, pessoa.estado, medico.especialidade, medico.crm
+                                FROM pessoa
+                                INNER JOIN funcionario ON pessoa.codigo = funcionario.codigo
+                                LEFT JOIN medico ON funcionario.codigo = medico.codigo
+                            SQL;
+
+                            $stmt = $pdo->query($sql);
+
+                            $counter = 1;
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                $nome = $row["nome"];
+                                $email = $row["email"];
+                                $telefone = $row["telefone"];
+                                $cep = $row["cep"];
+                                $logradouro = $row["logradouro"];
+                                $cidade = $row["cidade"];
+                                $estado = $row["estado"];
+                                $especialidae = $row["especialidade"];
+                                $crm = $row["crm"];
+
+                                echo "<tr>";
+                                echo "<th scope=\"row\">{$counter}</th>";
+                                echo "<td>{$nome}</td>";
+                                echo "<td>{$email} / {$telefone}</td>";
+                                echo "<td>";
+                                echo "<div class=\"dropdown dropdown-menu-end d-inline\">";
+                                echo "<button class=\"dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton1\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">🗺</button>";
+                                echo '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">';
+                                echo "<li class=\"dropdown-item\">{$cep}</li>";
+                                echo "<li class=\"dropdown-item\">{$logradouro}</li>";
+                                echo "<li class=\"dropdown-item\">{$cidade}</li>";
+                                echo "<li class=\"dropdown-item\">{$estado}</li>";
+                                echo '</ul>';
+                                echo '</div>';
+                                echo "</td>";
+                                if($crm != null) {
+                                    echo '<td>';
+                                    echo '<div class="dropdown dropdown-menu-end d-inline ms-2">';
+                                    echo '<button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">Sim 📃</button>';
+                                    echo '<ul class="dropdown-menu">';
+                                    echo "<li class=\"dropdown-item\">{$especialidae}</li>";
+                                    echo "<li class=\"dropdown-item\">{$crm}</li>";
+                                    echo '</ul>';
+                                    echo '</td>';
+                                }
+                                else {
+                                    echo '<td>Não</td>';
+                                }
+                                echo "</tr>";
+
+                                $counter = $counter + 1;
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>

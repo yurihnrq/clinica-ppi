@@ -5,3 +5,5 @@ form { width: 80%; }
 }
 
 #doctor-info { display: none; }
+
+.result-message { display: none; }

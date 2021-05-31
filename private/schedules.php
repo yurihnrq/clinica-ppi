@@ -1,3 +1,14 @@
+<?php
+
+require_once "authentication.php";
+require_once "mysqlConnection.php";
+
+session_start();
+$pdo = mysqlConnect();
+exitWhenNotLogged($pdo);
+
+?>
+
 <!doctype html>
 <html lang="pt-BR">
 
@@ -35,50 +46,50 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="./worker.html">
+                        <a class="nav-link" href="./worker.php">
                             <i class="bi bi-journal-plus me-2"></i>
                             Novo funcionário
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./patient.html">
+                        <a class="nav-link" href="./patient.php">
                             <i class="bi bi-person-plus me-2"></i>
                             Novo paciente
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./list_workers.html">
+                        <a class="nav-link" href="./list_workers.php">
                             <i class="bi bi-person-badge me-2"></i>
                             Listar funcionários
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./list_patients.html">
+                        <a class="nav-link" href="./list_patients.php">
                             <i class="bi bi-person-lines-fill me-2"></i>
                             Listar pacientes
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./adresses.html">
+                        <a class="nav-link" href="./addresses.php">
                             <i class="bi bi-signpost-2 me-2"></i>
                             Listar endereços
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./schedules.html">
+                        <a class="nav-link" href="#">
                             <i class="bi bi-card-list me-2"></i>
                             Listar todos agendamentos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./personal_schedules.html">
+                        <a class="nav-link" href="./personal_schedules.php">
                             <i class="bi bi-card-checklist me-2"></i>
                             Listar meus agendamentos
                         </a>
                     </li>
                     <hr class="bg-white">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             Sair
                         </a>
@@ -97,31 +108,31 @@
                 </a>
                 <ul class="nav nav-pills flex-column mt-3 mb-auto">
                     <li>
-                        <a href="./worker.html" class="nav-link">
+                        <a href="./worker.php" class="nav-link">
                             <i class="bi bi-journal-plus me-2"></i>
                             <span class="d-lg-inline d-none">Novo funcionário</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./patient.html" class="nav-link">
+                        <a href="./patient.php" class="nav-link">
                             <i class="bi bi-person-plus me-2"></i>
                             <span class="d-lg-inline d-none">Novo paciente</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./list_workers.html" class="nav-link">
+                        <a href="./list_workers.php" class="nav-link">
                             <i class="bi bi-person-badge me-2"></i>
                             <span class="d-lg-inline d-none">Listar funcionários</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./list_patients.html" class="nav-link">
+                        <a href="./list_patients.php" class="nav-link">
                             <i class="bi bi-person-lines-fill me-2"></i>
                             <span class="d-lg-inline d-none">Listar pacientes</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./adresses.html" class="nav-link">
+                        <a href="./addresses.php" class="nav-link">
                             <i class="bi bi-signpost-2 me-2"></i>
                             <span class="d-lg-inline d-none">Listar endereços</span>
                         </a>
@@ -133,14 +144,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./personal_schedules.html" class="nav-link">
+                        <a href="./personal_schedules.php" class="nav-link">
                             <i class="bi bi-card-checklist me-2"></i>
                             <span class="d-lg-inline d-none">Listar meus agendamentos</span>
                         </a>
                     </li>
                     <hr class="bg-white">
                     <li>
-                        <a href="#" class="nav-link">
+                        <a href="logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             <span class="d-lg-inline d-none">Sair</span>
                         </a>

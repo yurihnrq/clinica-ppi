@@ -2,8 +2,24 @@
 
 function checkPassword($pdo, $email, $senha)
 {
+
+  class User {
+    public $nome;
+    public $email;
+    public $telefone;
+    public $hash;
+
+    public function __construct($nome, $email, $telefone, $hash) {
+      $this->$nome = $nome;
+      $this->$email = $email;
+      $this->$telefone = $telefone;
+      $this->$hash = $hash;
+    }
+  }
+
+
   $sql = <<<SQL
-    SELECT senha_hash
+    SELECT senha_hash, nome, email, telefone
     FROM funcionario INNER JOIN pessoa ON funcionario.codigo = pessoa.codigo
     WHERE email = ?
     SQL;
@@ -11,16 +27,17 @@ function checkPassword($pdo, $email, $senha)
   try {
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$email]);
-    $senhaHash = $stmt->fetchColumn();
+    $row = $stmt->fetch();
 
-    if (!$senhaHash)
+    if (!$row)
       return false; // email não encontrado
 
-    if (!password_verify($senha, $senhaHash))
+    if (!password_verify($senha, $row["senha_hash"]))
       return false; // senha incorreta
       
     // email e senha corretos
-    return $senhaHash;
+    $user = new User($row["nome"], $row["email"], $row["telefone"], $row["senha_hash"]);
+    return $user;
   } 
   catch (Exception $e) {
     exit('Falha inesperada: ' . $e->getMessage());

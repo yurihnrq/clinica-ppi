@@ -160,7 +160,9 @@
                 xhr.open("POST", "./private/login.php");
 
                 xhr.onload = _ => {
+                    console.log("teste 1");
                     if (xhr.responseText === "success") {
+                        console.log("teste");
                         window.location = "./private/index.php";
                     }
                     else {

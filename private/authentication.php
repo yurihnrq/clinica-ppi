@@ -24,6 +24,7 @@ function checkPassword($pdo, $email, $senha)
   } 
   catch (Exception $e) {
     exit('Falha inesperada: ' . $e->getMessage());
+    return false;
   }
 }
 
@@ -31,10 +32,10 @@ function checkLogged($pdo)
 {
   // Verifica se as variáveis de sessão criadas
   // no momento do login estão definidas
-  if (!isset($_SESSION['emailUsuario'], $_SESSION['loginString']))
+  if (!isset($_SESSION['email'], $_SESSION['loginString']))
     return false;
 
-  $email = $_SESSION['emailUsuario'];
+  $email = $_SESSION['email'];
 
   // Resgata a senha hash armazenada para conferência
   $sql = <<<SQL
@@ -54,6 +55,7 @@ function checkLogged($pdo)
     // atuais do navegador do usuário e compara com a
     // string de login gerada anteriormente no momento do login
     $loginStringCheck = hash('sha512', $senhaHash . $_SERVER['HTTP_USER_AGENT']);
+
     if (!hash_equals($loginStringCheck, $_SESSION['loginString']))
       return false;
 

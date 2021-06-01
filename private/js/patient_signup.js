@@ -1,10 +1,6 @@
 function getAddress(cep) {
-    if(cep.length != 9) {
-        return ;
-    }
-    
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "ajax_addresses.php?cep="+cep);
+    xhr.open("GET", "./php/ajax_addresses.php?cep="+cep);
     xhr.responseType = "json";
 
     xhr.onload = function() {
@@ -20,10 +16,13 @@ function getAddress(cep) {
             form.state.value = "";
             return ;
         }
-        const addressData = xhr.response;
-        form.address.value = addressData.logradouro;
-        form.city.value = addressData.cidade;
-        form.state.value = addressData.estado;
+
+        if (cep.length === 9) {
+            const addressData = xhr.response;
+            form.address.value = addressData.logradouro;
+            form.city.value = addressData.cidade;
+            form.state.value = addressData.estado;
+        }
     }
 
     xhr.onerror = function() {

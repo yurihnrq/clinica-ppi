@@ -1,7 +1,7 @@
 <?php
 
-require_once "authentication.php";
-require_once "mysqlConnection.php";
+require_once "./php/authentication.php";
+require_once "./php/mysqlConnection.php";
 
 session_start();
 $pdo = mysqlConnect();
@@ -89,7 +89,7 @@ exitWhenNotLogged($pdo);
                     </li>
                     <hr class="bg-white">
                     <li class="nav-item">
-                        <a href="logout.php" class="nav-link">
+                        <a href="./php/logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             Sair
                         </a>
@@ -151,7 +151,7 @@ exitWhenNotLogged($pdo);
                     </li>
                     <hr class="bg-white">
                     <li>
-                        <a href="logout.php" class="nav-link">
+                            <a href="./php/logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             <span class="d-lg-inline d-none">Sair</span>
                         </a>

@@ -1,7 +1,7 @@
 <?php
 
-require_once "authentication.php";
-require_once "mysqlConnection.php";
+require_once "./php/authentication.php";
+require_once "./php/mysqlConnection.php";
 
 session_start();
 $pdo = mysqlConnect();
@@ -88,7 +88,7 @@ exitWhenNotLogged($pdo);
                     </li>
                     <hr class="bg-white">
                     <li class="nav-item">
-                        <a href="logout.php" class="nav-link">
+                        <a href="./php/logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             Sair
                         </a>
@@ -109,7 +109,7 @@ exitWhenNotLogged($pdo);
                     <li>
                         <a href="./worker.php" class="nav-link">
                             <i class="bi bi-journal-plus me-2"></i>
-<span class="d-lg-inline d-none">                            Novo funcionário</span>
+                            <span class="d-lg-inline d-none">Novo funcionário</span>
                         </a>
                     </li>
                     <li>
@@ -150,7 +150,7 @@ exitWhenNotLogged($pdo);
                     </li>
                     <hr class="bg-white">
                     <li>
-                        <a href="logout.php" class="nav-link">
+                        <a href="./php/logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             <span class="d-lg-inline d-none">Sair</span>
                         </a>
@@ -171,8 +171,6 @@ exitWhenNotLogged($pdo);
                     </thead>
                     <tbody>
                         <?php
-
-                        require_once "mysqlConnection.php";
 
                         $sql = <<<SQL
                             SELECT cep, logradouro, cidade, estado

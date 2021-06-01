@@ -1,7 +1,7 @@
 <?php
 
-require_once "authentication.php";
-require_once "mysqlConnection.php";
+require_once "./php/authentication.php";
+require_once "./php/mysqlConnection.php";
 
 session_start();
 $pdo = mysqlConnect();
@@ -88,7 +88,7 @@ exitWhenNotLogged($pdo);
                     </li>
                     <hr class="bg-white">
                     <li class="nav-item">
-                        <a href="logout.php" class="nav-link">
+                        <a href="./php/logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             Sair
                         </a>
@@ -150,7 +150,7 @@ exitWhenNotLogged($pdo);
                     </li>
                     <hr class="bg-white">
                     <li>
-                        <a href="logout.php" class="nav-link">
+                        <a href="./php/logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             <span class="d-lg-inline d-none">Sair</span>
                         </a>
@@ -163,13 +163,13 @@ exitWhenNotLogged($pdo);
                     <div class="row">
                         <div class="col-xl-8 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="name" name="name" placeholder=" " required>
+                                <input type="text" class="form-control" id="name" name="name" placeholder=" " required minlength="4">
                                 <label for="name" class="form-label">Nome completo</label>
                             </div>
                         </div>
                         <div class="col-xl-4 mb-3">
                             <div class="form-floating">
-                                <select class="form-select" name="sex" id="sex">
+                                <select class="form-select" name="sex" id="sex" required>
                                     <option selected disabled value="">Selecione uma opção</option>
                                     <option value="M">Masculino</option>
                                     <option value="F">Feminino</option>
@@ -181,15 +181,19 @@ exitWhenNotLogged($pdo);
                     <div class="row">
                         <div class="col-lg-8 mb-3">
                             <div class="form-floating">
-                                <input type="email" class="form-control" id="email" name="email" placeholder=" "
-                                    required>
+                                <input 
+                                    type="email" class="form-control" id="email" name="email" placeholder=" " 
+                                    required minlength="5" pattern="[a-z1-9A-Z.-_]@[a-z1-9A-Z.-_]\.[a-z1-9A-Z.-_]"
+                                >
                                 <label for="email" class="form-label">Email</label>
                             </div>
                         </div>
                         <div class="col-lg-4 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="phone" name="phone" placeholder=" "
-                                    required>
+                                <input 
+                                    type="text" class="form-control" id="phone" name="phone"  placeholder="Ex: 34 9 9999-9999" 
+                                    required minlength="10" pattern="[1-9]{2} [1-9]{1} [1-9]{4}-{1}[1-9]{4}"
+                                >
                                 <label for="phone" class="form-label">Telefone</label>
                             </div>
                         </div>
@@ -197,14 +201,19 @@ exitWhenNotLogged($pdo);
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="cep" name="cep" placeholder=" " required>
+                                <input 
+                                    type="text" class="form-control" id="cep" name="cep" placeholder=" " 
+                                    required pattern="[1-9]{5}-[1-9]{3}"
+                                >
                                 <label for="cep" class="form-label">CEP</label>
                             </div>
                         </div>
                         <div class="col-md-8 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="address" name="address" placeholder=" "
-                                    required>
+                                <input 
+                                    type="text" class="form-control" id="address" name="address" placeholder=" "
+                                    required minlength="3"
+                                >
                                 <label for="address" class="form-label">Logradouro</label>
                             </div>
                         </div>
@@ -212,14 +221,17 @@ exitWhenNotLogged($pdo);
                     <div class="row">
                         <div class="col-md-8 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="city" name="city" placeholder=" " required>
+                                <input 
+                                    type="text" class="form-control" id="city" name="city" placeholder=" " 
+                                    required minlength="3"
+                                >
                                 <label for="city" class="form-label">Cidade</label>
                             </div>
                         </div>
                         <div class="col-md-4 mb-3">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="state" name="state" placeholder=" "
-                                    required>
+                                    required minlength="2">
                                 <label for="state" class="form-label">Estado</label>
                             </div>
                         </div>
@@ -228,21 +240,25 @@ exitWhenNotLogged($pdo);
                         <div class="col-lg-4 mb-3">
                             <div class="form-floating">
                                 <input type="number" class="form-control" id="weight" name="weight" placeholder=" "
-                                    required>
+                                    required min="0">
                                 <label for="weight" class="form-label">Peso</label>
                             </div>
                         </div>
                         <div class="col-lg-4 mb-3">
                             <div class="form-floating">
-                                <input type="number" class="form-control" id="height" name="height" placeholder=" "
-                                    required>
+                                <input 
+                                    type="number" class="form-control" id="height" name="height" placeholder=" "
+                                    required min="0"
+                                >
                                 <label for="height" class="form-label">Altura</label>
                             </div>
                         </div>
                         <div class="col-lg-4 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="blood" name="blood" placeholder=" "
-                                    required>
+                                <input 
+                                    type="text" class="form-control" id="blood" name="blood" placeholder=" "
+                                    required minlength="2"
+                                >
                                 <label for="blood" class="form-label">Tipo sanguíneo</label>
                             </div>
                         </div>
@@ -266,13 +282,13 @@ exitWhenNotLogged($pdo);
         </div>
     </main>
 
+    <script src="./js/patient_signup.js"></script>
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
     
-    <script src="./js/patient_signup.js"></script>
 </body>
 
 </html>

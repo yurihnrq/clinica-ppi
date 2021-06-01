@@ -1,7 +1,7 @@
 <?php
 
-require_once "authentication.php";
-require_once "mysqlConnection.php";
+require_once "./php/authentication.php";
+require_once "./php/mysqlConnection.php";
 
 session_start();
 $pdo = mysqlConnect();
@@ -20,8 +20,7 @@ exitWhenNotLogged($pdo);
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <!-- Common CSS -->
     <link rel="stylesheet" href="../style/style.css">
 
@@ -37,9 +36,7 @@ exitWhenNotLogged($pdo);
             <a class="navbar-brand" href=".">
                 Clínica Blu <span class="text-muted">Dashboard</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -88,7 +85,7 @@ exitWhenNotLogged($pdo);
                     </li>
                     <hr class="bg-white">
                     <li class="nav-item">
-                        <a href="logout.php" class="nav-link">
+                        <a href="./php/logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             Sair
                         </a>
@@ -150,7 +147,7 @@ exitWhenNotLogged($pdo);
                     </li>
                     <hr class="bg-white">
                     <li>
-                        <a href="logout.php" class="nav-link">
+                        <a href="./php/logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             <span class="d-lg-inline d-none">Sair</span>
                         </a>
@@ -163,13 +160,13 @@ exitWhenNotLogged($pdo);
                     <div class="row">
                         <div class="col-xl-8 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="name" name="name" placeholder=" " required>
+                                <input type="text" class="form-control" id="name" name="name" placeholder=" " required minlength="4">
                                 <label for="name" class="form-label">Nome completo</label>
                             </div>
                         </div>
                         <div class="col-xl-4 mb-3">
                             <div class="form-floating">
-                                <select class="form-select" name="sex" id="sex">
+                                <select class="form-select" name="sex" id="sex" required>
                                     <option selected disabled value="">Selecione uma opção</option>
                                     <option value="M">Masculino</option>
                                     <option value="F">Feminino</option>
@@ -181,15 +178,19 @@ exitWhenNotLogged($pdo);
                     <div class="row">
                         <div class="col-lg-8 mb-3">
                             <div class="form-floating">
-                                <input type="email" class="form-control" id="email" name="email" placeholder=" "
-                                    required>
+                                <input 
+                                    type="email" class="form-control" id="email" name="email" placeholder=" " 
+                                    required minlength="5" pattern="[a-z1-9A-Z.-_]@[a-z1-9A-Z.-_]\.[a-z1-9A-Z.-_]"
+                                >
                                 <label for="email" class="form-label">Email</label>
                             </div>
                         </div>
                         <div class="col-lg-4 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="phone" name="phone" placeholder=" "
-                                    required>
+                                <input 
+                                    type="text" class="form-control" id="phone" name="phone" placeholder="Ex: 34 9 9999-9999" 
+                                    required minlength="10" pattern="[1-9]{2} [1-9]{1} [1-9]{4}-{1}[1-9]{4}"
+                                >
                                 <label for="phone" class="form-label">Telefone</label>
                             </div>
                         </div>
@@ -197,14 +198,16 @@ exitWhenNotLogged($pdo);
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="cep" name="cep" placeholder=" " required>
+                                <input 
+                                    type="text" class="form-control" id="cep" name="cep" placeholder=" " 
+                                    required minlength="9" maxlength="9" pattern="[1-9]{5}-[1-9]{3}"
+                                >
                                 <label for="cep" class="form-label">CEP</label>
                             </div>
                         </div>
                         <div class="col-md-8 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="address" name="address" placeholder=" "
-                                    required>
+                                <input type="text" class="form-control" id="address" name="address" placeholder=" " required minlength="3">
                                 <label for="address" class="form-label">Logradouro</label>
                             </div>
                         </div>
@@ -212,14 +215,13 @@ exitWhenNotLogged($pdo);
                     <div class="row">
                         <div class="col-md-8 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="city" name="city" placeholder=" " required>
+                                <input type="text" class="form-control" id="city" name="city" placeholder=" " required minlength="2">
                                 <label for="city" class="form-label">Cidade</label>
                             </div>
                         </div>
                         <div class="col-md-4 mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="state" name="state" placeholder=" "
-                                    required>
+                                <input type="text" class="form-control" id="state" name="state" placeholder=" " required minlength="2">
                                 <label for="state" class="form-label">Estado</label>
                             </div>
                         </div>
@@ -227,15 +229,13 @@ exitWhenNotLogged($pdo);
                     <div class="row">
                         <div class="col-sm mb-3">
                             <div class="form-floating">
-                                <input type="date" class="form-control" id="starting-date" name="starting-date"
-                                    placeholder=" " required>
+                                <input type="date" class="form-control" id="starting-date" name="starting-date" placeholder=" " required>
                                 <label for="starting-date" class="form-label">Data de início</label>
                             </div>
                         </div>
                         <div class="col-sm mb-3">
                             <div class="form-floating">
-                                <input type="number" class="form-control" id="salary" name="salary" placeholder=" "
-                                    min="0" required>
+                                <input type="number" class="form-control" id="salary" name="salary" placeholder=" " min="1100" required>
                                 <label for="salary" class="form-label">Salário</label>
                             </div>
                         </div>
@@ -243,8 +243,7 @@ exitWhenNotLogged($pdo);
                     <div class="row">
                         <div class="col mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="password" name="password" placeholder=" "
-                                    required>
+                                <input type="text" class="form-control" id="password" name="password" placeholder=" " required>
                                 <label for="password" class="form-label">Senha</label>
                             </div>
                         </div>
@@ -260,13 +259,13 @@ exitWhenNotLogged($pdo);
                     <div class="row" id="doctor-info">
                         <div class="col mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="specialty" name="specialty" placeholder=" ">
+                                <input type="text" class="form-control" id="specialty" name="specialty" placeholder=" " minlength="4">
                                 <label for="specialty" class="form-label">Especialidade</label>
                             </div>
                         </div>
                         <div class="col mb-3">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="crm" name="crm" placeholder=" ">
+                                <input type="text" class="form-control" id="crm" name="crm" placeholder=" " minlength="2">
                                 <label for="crm" class="form-label">CRM</label>
                             </div>
                         </div>
@@ -290,12 +289,10 @@ exitWhenNotLogged($pdo);
         </div>
     </main>
 
+    <script src="./js/worker_signup.js"></script>
 
     <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-        crossorigin="anonymous"></script>
-    <script src="./js/worker_signup.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </body>
 
 </html>

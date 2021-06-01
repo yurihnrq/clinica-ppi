@@ -194,7 +194,7 @@ exitWhenNotLogged($pdo);
                                 $logradouro = $row["logradouro"];
                                 $cidade = $row["cidade"];
                                 $estado = $row["estado"];
-                                $especialidae = $row["especialidade"];
+                                $especialidade = $row["especialidade"];
                                 $crm = $row["crm"];
 
                                 echo "<tr>";
@@ -217,8 +217,8 @@ exitWhenNotLogged($pdo);
                                     echo '<div class="dropdown dropdown-menu-end d-inline ms-2">';
                                     echo '<button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">Sim 📃</button>';
                                     echo '<ul class="dropdown-menu">';
-                                    echo "<li class=\"dropdown-item\">{$especialidae}</li>";
-                                    echo "<li class=\"dropdown-item\">{$crm}</li>";
+                                    echo "<li class=\"dropdown-item\">{$especialidade}</li>";
+                                    echo "<li class=\"dropdown-item\">CRM: {$crm}</li>";
                                     echo '</ul>';
                                     echo '</td>';
                                 }

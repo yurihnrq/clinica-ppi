@@ -10,6 +10,7 @@ function getAddress(cep) {
     xhr.onload = function() {
         if (xhr.status != 200) {
             console.error("Falha inesperada: " + xhr.responseText);
+            return ;
         }
         if (xhr.response === null) {
             console.error("Resposta não obtida");

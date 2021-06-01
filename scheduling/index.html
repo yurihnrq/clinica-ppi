@@ -19,6 +19,10 @@
         .result-message {
             display: none;
         }
+
+        .scheduling-message {
+            display: none;
+        }
     </style>
 
     <title>Clínica</title>
@@ -84,7 +88,7 @@
                 <img class="img-fluid my-auto" src="../svg/undraw_schedule.svg" alt="">
             </div>
         </div>
-        <form action="#" class="mt-4">
+        <form action="#" method="POST" class="mt-4">
             <h2>Formulário</h2>
             <div class="row mb-3">
                 <div class="col-lg mb-3">
@@ -117,9 +121,6 @@
                     <div class="form-floating">
                         <select class="form-select" name="specialty" id="specialty" disabled>
                             <option selected disabled value=" ">Selecione a especialidade</option>
-                            <option value="1">Ortopedista</option>
-                            <option value="2">Urologista</option>
-                            <option value="3">Ginecologista</option>
                         </select>
                         <label for="specialty" class="form-label">Especialidade:</label>
                     </div>
@@ -128,9 +129,6 @@
                     <div class="form-floating">
                         <select disabled class="form-select" name="doctor" id="doctor">
                             <option selected disabled value=" ">Selecione um médico</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
                         </select>
                         <label for="doctor" class="form-label">Médico:</label>
                     </div>
@@ -146,10 +144,7 @@
                 <div class="col-md my-1">
                     <div class="form-floating">
                         <select disabled class="form-select" name="hour" id="hour">
-                            <option selected disabled>Selecione um horário</option>
-                            <option value="1">15h00</option>
-                            <option value="2">17h00</option>
-                            <option value="3">18h30</option>
+                            <option selected disabled value = " ">Selecione um horário</option>
                         </select>
                         <label for="hour" class="form-label">Horário:</label>
 
@@ -161,10 +156,16 @@
                     <button type="reset" class="btn btn-outline-dark me-3">
                         Limpar
                     </button>
-                    <button type="submit" class="btn bg-darkblue">
+                    <button type="submit" id="btn-agendar" class="btn bg-darkblue">
                         Agendar
                     </button>
                 </div>
+            </div>
+            <div class="alert alert-success mt-3 scheduling-message" id="scheduleSuccess" role="alert">
+                Agendamento realizado com sucesso!
+            </div>
+            <div class="alert alert-danger mt-3 scheduling-message" id="scheduleFail" role="alert">
+                Não foi possível realizar o agendamento.
             </div>
         </form>
     </main>
@@ -208,6 +209,112 @@
         crossorigin="anonymous"></script>
 
     <script>
+        function addSpecialties() {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "get_specialties.php");
+            xhr.responseType = "json";
+
+            xhr.onload = () => {
+                if (xhr.status !== 200) {
+                    console.error("Falha inesperada: " + xhr.responseText);
+                    return ;
+                }
+                if (xhr.response === null) {
+                    console.error("Resposta não obtida");
+                    return ;
+                }
+                let specialties = xhr.response;
+                let form = document.querySelector("form");
+                specialties.forEach(element => {
+                    var specialty = document.createElement("option");
+                    specialty.value = element;
+                    specialty.innerHTML = element;
+                    form.specialty.appendChild(specialty);
+                });
+            }
+            xhr.send();
+        }
+
+        function addDoctors(specialty) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "get_doctors.php?especialidade="+specialty);
+            xhr.responseType = "json";
+
+            xhr.onload = () => {
+                if (xhr.status !== 200) {
+                    console.error("Falha inesperada: " + xhr.responseText)
+                    return ;
+                }
+                if (xhr.response === null) {
+                    console.error("Resposta não obtida");
+                    return ;
+                }
+                let doctors = xhr.response;
+                let form = document.querySelector("form");
+
+                var node = form.doctor;
+                while (node.firstChild) {
+                    node.removeChild(node.firstChild);
+                }
+
+                var defaultElement = document.createElement("option");
+                defaultElement.value = " ";
+                defaultElement.disabled = true;
+                defaultElement.selected = true;
+                defaultElement.innerHTML = "Selecione um médico";
+                form.doctor.appendChild(defaultElement);
+                doctors.forEach(element => {
+                    var doctor = document.createElement("option");
+                    doctor.innerHTML = element.nome;
+                    doctor.value = element.crm;
+                    form.doctor.appendChild(doctor);
+                });
+            }
+
+            xhr.send();
+        }
+
+        function addHours(date, crm) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "get_hours.php?data="+date+"&crm="+crm);
+            xhr.responseType = "json";
+
+            xhr.onload = () => {
+                if (xhr.status !== 200) {
+                    console.error("Falha inesperada: " + xhr.responseText);
+                    return ;
+                }
+                if (xhr.response === null) {
+                    console.error("Resposta não obtida");
+                    return ;
+                }
+                let busyHours = xhr.response;
+                let form = document.querySelector("form");
+
+                var node = form.hour;
+                while (node.firstChild) {
+                    node.removeChild(node.firstChild);
+                }
+
+                let possibleHours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+
+                busyHours.forEach(element => {
+                    var idx = possibleHours.indexOf(element);
+                    if (idx !== -1) {
+                        possibleHours.splice(idx, 1);
+                    }
+                })
+
+                possibleHours.forEach(element => {
+                    var hour = document.createElement("option");
+                    hour.value = element;
+                    hour.innerHTML = element + "h00";
+                    form.hour.appendChild(hour);
+                });
+            }
+            xhr.send();
+        }
+
         window.onload = _ => {
             //Login
             const loginBtn = document.getElementById("btn-login");
@@ -217,7 +324,6 @@
                 const data = new FormData();
                 data.append("email", emailInput.value);
                 data.append("password", passwordInput.value);
-
 
                 let xhr = new XMLHttpRequest();
 
@@ -238,13 +344,64 @@
                 xhr.send(data);
             })
 
-            //Habilitar especialidade se tudo estiver preechido
+            addSpecialties();
+
+            document.getElementById("specialty").addEventListener("change", _ => {
+                addDoctors(document.getElementById("specialty").value);
+            })
+
+            document.getElementById("date").addEventListener("change", _ => {
+                addHours(document.getElementById("date").value, document.getElementById("doctor").value);
+            })
+
+            //Habilitar campos gradativamente
             const schedForm = document.querySelector('main form');
 
+            schedForm.addEventListener("submit", e => {
+                e.preventDefault();
+
+                console.log("heey");
+                let xhr = new XMLHttpRequest();
+
+                xhr.open("POST", "schedule.php");
+
+                const data = new FormData(schedForm);
+
+                xhr.onload = _ => {
+                    if(xhr.responseText !== "success") {
+                        document.getElementById("scheduleFail").style.display = "block";
+                        document.getElementById("scheduleSuccess").style.display = "none";
+                        console.error("Não foi possível realizar o agendamento.\n" + xhr.responseText);
+                    }
+                    else {
+                        document.getElementById("scheduleFail").style.display = "none";
+                        document.getElementById("scheduleSuccess").style.display = "block";
+                        console.info("Agendamento realizado com sucesso!");
+
+                        schedForm.reset();
+                        schedForm.specialty.disabled = true;
+                        schedForm.specialty.value = " ";
+
+                        schedForm.doctor.disabled = true;
+                        schedForm.doctor.value = " ";
+
+                        schedForm.date.disabled = true;
+                        schedForm.date.value = "";
+
+                        schedForm.date.disabled = true;
+                        schedForm.date.value = "";
+
+                        schedForm.hour.disabled = true;
+                        schedForm.hour.value = " ";
+                    }
+                }
+                xhr.send(data);
+            })
+
             schedForm.addEventListener("input", _ => {
-                if (schedForm.name.value.length >= 1 && schedForm.email.value.length >= 1 && schedForm.sex.value != " ")
+                if (schedForm.name.value.length >= 1 && schedForm.email.value.length >= 1 && schedForm.sex.value != " ") {
                     schedForm.specialty.disabled = false;
-                else {
+                } else {
                     schedForm.specialty.disabled = true;
                     schedForm.specialty.value = " ";
                 }
@@ -262,7 +419,16 @@
                     schedForm.date.disabled = true;
                     schedForm.date.value = "";
                 }
+                
+                if (schedForm.date.value !== "") {
+                    schedForm.hour.disabled = false;
+                } else {
+                    schedForm.hour.disabled = true;
+                    schedForm.hour.value = " ";
+                }
             });
+
+            
         };
     </script>
 </body>

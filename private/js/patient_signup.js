@@ -11,6 +11,7 @@ function getAddress(cep) {
         const form = document.querySelector("form");
         if (xhr.status != 200) {
             console.error("Falha inesperada: " + xhr.responseText);
+            return ;
         }
         if (xhr.response === null) {
             console.error("Resposta não obtida");

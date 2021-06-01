@@ -64,6 +64,8 @@ window.onload = _ => {
                     document.getElementById("registerFail").style.display = "none";
                     document.getElementById("registerSuccess").style.display = "block";
                     console.info("Funcionário salvo com sucesso!");
+
+                    form.reset();
                 }
             }
         }
@@ -71,12 +73,17 @@ window.onload = _ => {
             xhr.open("POST", "./sql/save_doctor.php")
             xhr.onload = _ => {
                 if(xhr.responseText !== "success") {
-                    resultFail = document.getElementById("registerFail").style.display = "block";
+                    document.getElementById("registerFail").style.display = "block";
+                    document.getElementById("registerSuccess").style.display = "none";
                     console.error("Não foi possível cadastrar o funcionário.\n" + xhr.responseText);
+                    
                 }
                 else {
-                    resultFail = document.getElementById("registerSuccess").style.display = "block";
+                    document.getElementById("registerFail").style.display = "none";
+                    document.getElementById("registerSuccess").style.display = "block";
                     console.info("Funcionário salvo com sucesso!");
+                    
+                    form.reset();
                 }
             }
         }

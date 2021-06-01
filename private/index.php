@@ -157,35 +157,9 @@ exitWhenNotLogged($pdo);
                     </li>
                 </ul>
             </div>
-            <div class="col">
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
-                <h1>Olá User, seja bem-vindo!</h1>
+            <div class="col p-4">
+                <h1>Olá <?php echo $_SESSION["email"] ?>, seja bem-vindo!</h1>
+                <p>Aqui você tem acesso as funcionalidades exclusivas para funcionários.</p>
             </div>
         </div>
     </main>

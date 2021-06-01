@@ -30,7 +30,7 @@
             <a class="navbar-brand" href="#">Clínica Blu</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
-                
+
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -116,7 +116,7 @@
                 <div class="col-md my-1">
                     <div class="form-floating">
                         <select class="form-select" name="specialty" id="specialty" disabled>
-                            <option selected disabled>Selecione a especialidade</option>
+                            <option selected disabled value=" ">Selecione a especialidade</option>
                             <option value="1">Ortopedista</option>
                             <option value="2">Urologista</option>
                             <option value="3">Ginecologista</option>
@@ -127,7 +127,7 @@
                 <div class="col-md my-1">
                     <div class="form-floating">
                         <select disabled class="form-select" name="doctor" id="doctor">
-                            <option selected disabled>Selecione um médico</option>
+                            <option selected disabled value=" ">Selecione um médico</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -181,13 +181,13 @@
                     <div class="col">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email:</label>
-                            <input id="email" type="email" name="email" class="form-control" placeholder="seuemail@mail.com"
-                                required>
+                            <input id="email" type="email" name="email" class="form-control"
+                                placeholder="seuemail@mail.com" required>
                         </div>
                         <div>
                             <label for="password" class="form-label">Senha:</label>
-                            <input id="password" type="password" name="password" class="form-control" placeholder="********"
-                                required>
+                            <input id="password" type="password" name="password" class="form-control"
+                                placeholder="********" required>
                         </div>
                     </div>
                     <div class="alert alert-danger result-message mt-3" id="loginFail" role="alert">
@@ -206,7 +206,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
-        
+
     <script>
         window.onload = _ => {
             //Login
@@ -217,7 +217,7 @@
                 const data = new FormData();
                 data.append("email", emailInput.value);
                 data.append("password", passwordInput.value);
-                
+
 
                 let xhr = new XMLHttpRequest();
 
@@ -240,15 +240,28 @@
 
             //Habilitar especialidade se tudo estiver preechido
             const schedForm = document.querySelector('main form');
-            const name = document.querySelector('#name');
-            const email = document.querySelector('#sched-email');
-            const sex = document.querySelector('#sex');
 
             schedForm.addEventListener("input", _ => {
-                if (name.value.length >= 1 && email.value.length >= 1 && sex.value != " ")
-                    document.querySelector('#specialty').disabled = false;
-                else
-                    document.querySelector('#specialty').disabled = true;
+                if (schedForm.name.value.length >= 1 && schedForm.email.value.length >= 1 && schedForm.sex.value != " ")
+                    schedForm.specialty.disabled = false;
+                else {
+                    schedForm.specialty.disabled = true;
+                    schedForm.specialty.value = " ";
+                }
+
+                if (schedForm.specialty.value !== " ") {
+                    schedForm.doctor.disabled = false;
+                } else {
+                    schedForm.doctor.disabled = true;
+                    schedForm.doctor.value = " ";
+                }
+
+                if (schedForm.doctor.value !== " ") {
+                    schedForm.date.disabled = false;
+                } else {
+                    schedForm.date.disabled = true;
+                    schedForm.date.value = "";
+                }
             });
         };
     </script>

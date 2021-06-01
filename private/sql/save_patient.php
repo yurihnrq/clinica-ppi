@@ -25,7 +25,6 @@ $sqlPessoa = <<<SQL
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 SQL;
 
-$senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 $sqlPatient = <<<SQL
     INSERT INTO paciente(codigo, peso, altura, tipo_sanguineo)
     VALUES (?, ?, ?, ?)

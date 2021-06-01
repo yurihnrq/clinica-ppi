@@ -8,15 +8,18 @@ function getAddress(cep) {
     xhr.responseType = "json";
 
     xhr.onload = function() {
+        const form = document.querySelector("form");
         if (xhr.status != 200) {
             console.error("Falha inesperada: " + xhr.responseText);
         }
         if (xhr.response === null) {
             console.error("Resposta não obtida");
+            form.address.value = "";
+            form.city.value = "";
+            form.state.value = "";
             return ;
         }
         const addressData = xhr.response;
-        const form = document.querySelector("form");
         form.address.value = addressData.logradouro;
         form.city.value = addressData.cidade;
         form.state.value = addressData.estado;
@@ -52,6 +55,8 @@ window.onload = _ => {
                 document.getElementById("registerFail").style.display = "none";
                 document.getElementById("registerSuccess").style.display = "block";
                 console.info("Paciente salvo com sucesso!");
+
+                form.reset();
             }
         }
 

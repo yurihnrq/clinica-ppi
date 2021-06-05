@@ -2,7 +2,7 @@
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    require "mysqlConnection.php";
+    require "./db/mysqlConnection.php";
     $pdo = mysqlConnect();
 
     $cep = $address = $city = $state = "";
@@ -179,42 +179,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
-    <script>
-        window.onload = () => {
-            const loginBtn = document.getElementById("btn-login");
-            const emailInput = document.getElementById("email");
-            const passwordInput = document.getElementById("password");
-            loginBtn.addEventListener("click", e => {
-                const data = new FormData();
-                data.append("email", emailInput.value);
-                data.append("password", passwordInput.value);
-                
-
-                let xhr = new XMLHttpRequest();
-
-                xhr.open("POST", "../private/login.php");
-
-                xhr.onload = _ => {
-                    if (xhr.responseText === "success") {
-                        window.location = "../private/index.php";
-                    }
-                    else {
-                        console.log(xhr.responseText);
-                        document.getElementById("loginFail").style.display = "block";
-                        passwordInput.value = "";
-                        passwordInput.focus();
-                    }
-                }
-
-                xhr.send(data);
-            })
-        }
-    </script>
-
+    
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-        crossorigin="anonymous"></script>
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+    
+    <script src="./js/login.js"></script>
 </body>
 
 </html>

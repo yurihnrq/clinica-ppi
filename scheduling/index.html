@@ -14,9 +14,12 @@
     <!-- Common CSS -->
     <link rel="stylesheet" href="../style/style.css">
 
-    <link rel="stylesheet" href="scheduling.css">
     <style>
         .result-message {
+            display: none;
+        }
+
+        .scheduling-message {
             display: none;
         }
     </style>
@@ -84,25 +87,31 @@
                 <img class="img-fluid my-auto" src="../svg/undraw_schedule.svg" alt="">
             </div>
         </div>
-        <form action="#" class="mt-4">
+        <form action="#" method="POST" class="mt-4">
             <h2>Formulário</h2>
+            <div class="alert alert-success mt-3 scheduling-message" id="scheduleSuccess" role="alert">
+                Agendamento realizado com sucesso!
+            </div>
+            <div class="alert alert-danger mt-3 scheduling-message" id="scheduleFail" role="alert">
+                Não foi possível realizar o agendamento.
+            </div>
             <div class="row mb-3">
                 <div class="col-lg mb-3">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="name" name="name" placeholder=" ">
+                        <input type="text" class="form-control" id="name" name="name" placeholder=" " required>
                         <label for="name" class="form-label">Nome completo</label>
                     </div>
                 </div>
                 <div class="col-lg mb-3">
                     <div class="form-floating">
-                        <input type="email" class="form-control" id="sched-email" name="email" placeholder=" ">
+                        <input type="email" class="form-control" id="sched-email" name="email" placeholder=" " required>
                         <label for="sched-email" class="form-label">Email</label>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="form-floating">
-                        <select class="form-select" name="sex" id="sex">
-                            <option selected disabled value=" ">Selecione uma opção</option>
+                        <select class="form-select" name="sex" id="sex" required>
+                            <option selected disabled value="">Selecione uma opção</option>
                             <option value="M">Masculino</option>
                             <option value="F">Feminino</option>
                             <option value="NA">Não especificar</option>
@@ -115,22 +124,16 @@
                 <span class="text-muted">Preencha as informações acima para habilitar o restante do formulário.</span>
                 <div class="col-md my-1">
                     <div class="form-floating">
-                        <select class="form-select" name="specialty" id="specialty" disabled>
-                            <option selected disabled value=" ">Selecione a especialidade</option>
-                            <option value="1">Ortopedista</option>
-                            <option value="2">Urologista</option>
-                            <option value="3">Ginecologista</option>
+                        <select class="form-select" name="specialty" id="specialty" disabled required>
+                            <option selected disabled value="">Selecione a especialidade</option>
                         </select>
                         <label for="specialty" class="form-label">Especialidade:</label>
                     </div>
                 </div>
                 <div class="col-md my-1">
                     <div class="form-floating">
-                        <select disabled class="form-select" name="doctor" id="doctor">
-                            <option selected disabled value=" ">Selecione um médico</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select disabled class="form-select" name="doctor" id="doctor" required>
+                            <option selected disabled value="">Selecione um médico</option>
                         </select>
                         <label for="doctor" class="form-label">Médico:</label>
                     </div>
@@ -139,17 +142,14 @@
             <div class="row">
                 <div class="col-md my-1">
                     <div class="form-floating">
-                        <input disabled type="date" name="date" id="date" class="form-control">
+                        <input disabled type="date" name="date" id="date" class="form-control" required>
                         <label for="date" class="form-label">Data:</label>
                     </div>
                 </div>
                 <div class="col-md my-1">
                     <div class="form-floating">
-                        <select disabled class="form-select" name="hour" id="hour">
-                            <option selected disabled>Selecione um horário</option>
-                            <option value="1">15h00</option>
-                            <option value="2">17h00</option>
-                            <option value="3">18h30</option>
+                        <select disabled class="form-select" name="hour" id="hour" required>
+                            <option selected disabled value="">Selecione um horário</option>
                         </select>
                         <label for="hour" class="form-label">Horário:</label>
 
@@ -158,10 +158,10 @@
             </div>
             <div class="row my-3">
                 <div class="col form-btns">
-                    <button type="reset" class="btn btn-outline-dark me-3">
+                    <button type="reset" id="btn-reset" class="btn btn-outline-dark me-3">
                         Limpar
                     </button>
-                    <button type="submit" class="btn bg-darkblue">
+                    <button type="submit" id="btn-agendar" class="btn bg-darkblue">
                         Agendar
                     </button>
                 </div>
@@ -202,69 +202,14 @@
         </div>
     </div>
 
+    <!-- Scheduling Page Handlers -->
+    <script src="./js/scheduling_page.js"></script>
+
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
 
-    <script>
-        window.onload = _ => {
-            //Login
-            const loginBtn = document.getElementById("btn-login");
-            const emailInput = document.getElementById("email");
-            const passwordInput = document.getElementById("password");
-            loginBtn.addEventListener("click", e => {
-                const data = new FormData();
-                data.append("email", emailInput.value);
-                data.append("password", passwordInput.value);
-
-
-                let xhr = new XMLHttpRequest();
-
-                xhr.open("POST", "../private/login.php");
-
-                xhr.onload = _ => {
-                    if (xhr.responseText === "success") {
-                        window.location = "../private/index.php";
-                    }
-                    else {
-                        console.log(xhr.responseText);
-                        document.getElementById("loginFail").style.display = "block";
-                        passwordInput.value = "";
-                        passwordInput.focus();
-                    }
-                }
-
-                xhr.send(data);
-            })
-
-            //Habilitar especialidade se tudo estiver preechido
-            const schedForm = document.querySelector('main form');
-
-            schedForm.addEventListener("input", _ => {
-                if (schedForm.name.value.length >= 1 && schedForm.email.value.length >= 1 && schedForm.sex.value != " ")
-                    schedForm.specialty.disabled = false;
-                else {
-                    schedForm.specialty.disabled = true;
-                    schedForm.specialty.value = " ";
-                }
-
-                if (schedForm.specialty.value !== " ") {
-                    schedForm.doctor.disabled = false;
-                } else {
-                    schedForm.doctor.disabled = true;
-                    schedForm.doctor.value = " ";
-                }
-
-                if (schedForm.doctor.value !== " ") {
-                    schedForm.date.disabled = false;
-                } else {
-                    schedForm.date.disabled = true;
-                    schedForm.date.value = "";
-                }
-            });
-        };
-    </script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 <?php
 
-require_once "authentication.php";
-require_once "mysqlConnection.php";
+require_once "./php/authentication.php";
+require_once "./php/mysqlConnection.php";
 
 session_start();
 $pdo = mysqlConnect();
@@ -89,7 +89,7 @@ exitWhenNotLogged($pdo);
                     </li>
                     <hr class="bg-white">
                     <li class="nav-item">
-                        <a href="logout.php" class="nav-link">
+                        <a href="./php/logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             Sair
                         </a>
@@ -151,7 +151,7 @@ exitWhenNotLogged($pdo);
                     </li>
                     <hr class="bg-white">
                     <li>
-                        <a href="logout.php" class="nav-link">
+                        <a href="./php/logout.php" class="nav-link">
                             <i class="bi bi-box-arrow-left me-2"></i>
                             <span class="d-lg-inline d-none">Sair</span>
                         </a>
@@ -173,9 +173,6 @@ exitWhenNotLogged($pdo);
                     <tbody>
                         <?php
 
-                            require_once "mysqlConnection.php";
-                            $pdo = mysqlConnect();
-
                             $sql = <<<SQL
                                 SELECT nome, email, telefone, cep, logradouro, cidade, estado, sexo, peso, altura, tipo_sanguineo
                                 FROM pessoa INNER JOIN paciente ON pessoa.codigo = paciente.codigo
@@ -185,17 +182,17 @@ exitWhenNotLogged($pdo);
 
                             $counter = 1;
                             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                $nome = $row["nome"];
-                                $email = $row["email"];
-                                $telefone = $row["telefone"];
-                                $cep = $row["cep"];
-                                $logradouro = $row["logradouro"];
-                                $cidade = $row["cidade"];
-                                $estado = $row["estado"];
-                                $sexo = $row["sexo"];
-                                $peso = $row["peso"];
-                                $altura = $row["altura"];
-                                $tipoSanguineo = $row["tipo_sanguineo"];
+                                $nome = htmlspecialchars($row["nome"]);
+                                $email = htmlspecialchars($row["email"]);
+                                $telefone = htmlspecialchars($row["telefone"]);
+                                $cep = htmlspecialchars($row["cep"]);
+                                $logradouro = htmlspecialchars($row["logradouro"]);
+                                $cidade = htmlspecialchars($row["cidade"]);
+                                $estado = htmlspecialchars($row["estado"]);
+                                $sexo = htmlspecialchars($row["sexo"]);
+                                $peso = htmlspecialchars($row["peso"]);
+                                $altura = htmlspecialchars($row["altura"]);
+                                $tipoSanguineo = htmlspecialchars($row["tipo_sanguineo"]);
 
                                 echo '<tr>';
                                 echo "<th scope=\"row\">{$counter}</th>";

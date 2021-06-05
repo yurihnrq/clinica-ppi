@@ -1,25 +1,27 @@
 function getAddress(cep) {
-    if(cep.length != 9) {
-        return ;
-    }
-    
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "ajax_addresses.php?cep="+cep);
+    xhr.open("GET", "./php/ajax_addresses.php?cep="+cep);
     xhr.responseType = "json";
 
     xhr.onload = function() {
+        const form = document.querySelector("form");
         if (xhr.status != 200) {
             console.error("Falha inesperada: " + xhr.responseText);
+            return ;
         }
         if (xhr.response === null) {
             console.error("Resposta não obtida");
+            form.address.value = "";
+            form.city.value = "";
+            form.state.value = "";
             return ;
         }
-        const addressData = xhr.response;
-        const form = document.querySelector("form");
-        form.address.value = addressData.logradouro;
-        form.city.value = addressData.cidade;
-        form.state.value = addressData.estado;
+        if (cep.length === 9) {
+            const addressData = xhr.response;
+            form.address.value = addressData.logradouro;
+            form.city.value = addressData.cidade;
+            form.state.value = addressData.estado;
+        }
     }
 
     xhr.onerror = function() {

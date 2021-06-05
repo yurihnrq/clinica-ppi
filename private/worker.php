@@ -180,7 +180,7 @@ exitWhenNotLogged($pdo);
                             <div class="form-floating">
                                 <input 
                                     type="email" class="form-control" id="email" name="email" placeholder=" " 
-                                    required minlength="5" pattern="[a-z1-9A-Z.-_]@[a-z1-9A-Z.-_]\.[a-z1-9A-Z.-_]"
+                                    required minlength="5" pattern="[a-z0-9A-Z.-_]+@[a-z0-9A-Z.-_]+\.[a-z0-9A-Z.-_]+"
                                 >
                                 <label for="email" class="form-label">Email</label>
                             </div>
@@ -189,7 +189,7 @@ exitWhenNotLogged($pdo);
                             <div class="form-floating">
                                 <input 
                                     type="text" class="form-control" id="phone" name="phone" placeholder="Ex: 34 9 9999-9999" 
-                                    required minlength="10" pattern="[1-9]{2} [1-9]{1} [1-9]{4}-{1}[1-9]{4}"
+                                    required minlength="10" pattern="[0-9]{2} [0-9]{1} [0-9]{4}-{1}[0-9]{4}"
                                 >
                                 <label for="phone" class="form-label">Telefone</label>
                             </div>
@@ -200,7 +200,7 @@ exitWhenNotLogged($pdo);
                             <div class="form-floating">
                                 <input 
                                     type="text" class="form-control" id="cep" name="cep" placeholder=" " 
-                                    required minlength="9" maxlength="9" pattern="[1-9]{5}-[1-9]{3}"
+                                    required minlength="9" maxlength="9" pattern="[0-9]{5}-[0-9]{3}"
                                 >
                                 <label for="cep" class="form-label">CEP</label>
                             </div>

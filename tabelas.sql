@@ -22,11 +22,11 @@ CREATE TABLE pessoa
 CREATE TABLE funcionario
 (
 	data_contrato date,
-	salario float,
+	salario int,
 	senha_hash varchar(512),
 	codigo int PRIMARY KEY,
 	FOREIGN KEY (codigo) REFERENCES pessoa(codigo) ON DELETE CASCADE
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE medico
 (
@@ -34,7 +34,7 @@ CREATE TABLE medico
 	crm varchar(100) UNIQUE,
 	codigo int PRIMARY KEY,
 	FOREIGN KEY (codigo) REFERENCES funcionario(codigo) ON DELETE CASCADE
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE paciente
 (
@@ -43,16 +43,22 @@ CREATE TABLE paciente
 	tipo_sanguineo varchar(5),
 	codigo int PRIMARY KEY,
 	FOREIGN KEY (codigo) REFERENCES pessoa(codigo) ON DELETE CASCADE
-);
+) ENGINE=InnoDB;
 
 CREATE TABLE agenda
 (
 	codigo int PRIMARY KEY auto_increment,
 	data date,
-	horario time,
+	horario int,
 	nome varchar(255),
 	sexo varchar(15),
 	email varchar(50),
 	codigo_medico int,
 	FOREIGN KEY (codigo_medico) REFERENCES medico(codigo) ON DELETE CASCADE
-);
+) ENGINE=InnoDB;
+
+INSERT INTO pessoa(nome, sexo, email, telefone, cep, logradouro, cidade, estado) VALUES
+('Administrador', 'M', 'adm@adm.com', '99 9999-9999', 'N/A', 'N/A', 'N/A', 'N/A');
+
+INSERT INTO funcionario(data_contrato, salario, senha_hash, codigo) VALUES
+('2021-01-01', 9999, '$2y$12$4b/0cQh2B4T5LDArC57Bf.iv4.MGTh.YO12NigoZ9PIvSiXib/ljW', 1);

@@ -157,16 +157,16 @@ window.onload = _ => {
 
                 schedForm.reset();
                 schedForm.specialty.disabled = true;
-                schedForm.specialty.value = " ";
+                schedForm.specialty.value = "";
 
                 schedForm.doctor.disabled = true;
-                schedForm.doctor.value = " ";
+                schedForm.doctor.value = "";
 
                 schedForm.date.disabled = true;
                 schedForm.date.value = "";
 
                 schedForm.hour.disabled = true;
-                schedForm.hour.value = " ";
+                schedForm.hour.value = "";
             }
         }
         xhr.send(data);
@@ -188,17 +188,17 @@ window.onload = _ => {
             schedForm.specialty.disabled = false;
         else {
             schedForm.specialty.disabled = true;
-            schedForm.specialty.value = " ";
+            schedForm.specialty.value = "";
         }
 
-        if (schedForm.specialty.value !== " ")
+        if (schedForm.specialty.value !== "")
             schedForm.doctor.disabled = false;
         else {
             schedForm.doctor.disabled = true;
-            schedForm.doctor.value = " ";
+            schedForm.doctor.value = "";
         }
 
-        if (schedForm.doctor.value !== " ")
+        if (schedForm.doctor.value !== "")
             schedForm.date.disabled = false;
         else {
             schedForm.date.disabled = true;
@@ -209,7 +209,7 @@ window.onload = _ => {
             schedForm.hour.disabled = false;
         else {
             schedForm.hour.disabled = true;
-            schedForm.hour.value = " ";
+            schedForm.hour.value = "";
         }
     });
 
@@ -218,16 +218,16 @@ window.onload = _ => {
 
         schedForm.reset();
         schedForm.specialty.disabled = true;
-        schedForm.specialty.value = " ";
+        schedForm.specialty.value = "";
 
         schedForm.doctor.disabled = true;
-        schedForm.doctor.value = " ";
+        schedForm.doctor.value = "";
 
         schedForm.date.disabled = true;
         schedForm.date.value = "";
 
         schedForm.hour.disabled = true;
-        schedForm.hour.value = " ";
+        schedForm.hour.value = "";
     });
 
 

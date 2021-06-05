@@ -172,36 +172,57 @@ exitWhenNotLogged($pdo);
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>10/10/2021</td>
-                            <td>16:30</td>
-                            <td>
-                                Tainá
-                                <div class="dropdown dropdown-menu-end d-inline ms-2">
-                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                        📃
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li class="dropdown-item">Sexo: F</li>
-                                        <li class="dropdown-item">Email: taina@mail.com</li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td>Ortopedista</td>
-                            <td>
-                                José
-                                <div class="dropdown dropdown-menu-end d-inline ms-2">
-                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                        📃
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li class="dropdown-item">José de Alencar</li>
-                                        <li class="dropdown-item">CRM</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php
+                            $sql = <<<SQL
+                                SELECT data, horario, agenda.nome as nome_paciente, agenda.sexo, agenda.email, especialidade, crm, pessoa.nome as nome_medico
+                                FROM agenda INNER JOIN medico ON agenda.codigo_medico = medico.codigo
+                                INNER JOIN pessoa ON medico.codigo = pessoa.codigo
+                                ORDER BY data
+                            SQL;
+
+                            $stmt = $pdo->query($sql);
+                            $counter = 1;
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                $data = htmlspecialchars($row["data"]);
+                                $data = date_format(date_create($data), 'd/m/Y');
+                                $horario = htmlspecialchars($row["horario"]);
+                                $nome_paciente = htmlspecialchars($row["nome_paciente"]);
+                                $sexo = htmlspecialchars($row["sexo"]);
+                                $email = htmlspecialchars($row["email"]);
+                                $especialidade = htmlspecialchars($row["especialidade"]);
+                                $crm = htmlspecialchars($row["crm"]);
+                                $nome_medico = htmlspecialchars($row["nome_medico"]);
+
+                                echo '<tr>';
+                                echo "<th scope=\"row\">{$counter}</th>";
+                                echo "<td>{$data}</td>";
+                                echo "<td>{$horario}h00</td>";
+                                echo '<td>';
+                                echo "{$nome_paciente}";
+                                echo '<div class="dropdown dropdown-menu-end d-inline ms-2">';
+                                echo '<button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">📃</button>';
+                                echo '<ul class="dropdown-menu">';
+                                echo "<li class=\"dropdown-item\">Sexo: {$sexo}</li>";
+                                echo "<li class=\"dropdown-item\">Email: {$email}</li>";
+                                echo '</ul>';
+                                echo '</div>';
+                                echo '</td>';
+                                echo "<td>{$especialidade}</td>";
+                                echo '<td>';
+                                echo "{$nome_medico}";
+                                echo '<div class="dropdown dropdown-menu-end d-inline ms-2">';
+                                echo '<button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">📃</button>';
+                                echo '<ul class="dropdown-menu">';
+                                echo "<li class=\"dropdown-item\">CRM: {$crm}</li>";
+                                echo '</ul>';
+                                echo '</div>';
+                                echo '</td>';
+                                echo '</tr>';
+                
+                                $counter = $counter + 1;
+                            }
+
+                        ?>
                     </tbody>
                 </table>
             </div>

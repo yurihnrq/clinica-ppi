@@ -173,23 +173,47 @@ exitWhenNotLogged($pdo);
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>10/10/2021</td>
-                            <td>16:30</td>
-                            <td>
-                                Tainá
-                                <div class="dropdown dropdown-menu-end d-inline ms-2">
-                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                        📃
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li class="dropdown-item">Sexo: F</li>
-                                        <li class="dropdown-item">Email: taina@mail.com</li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
+                    <?php
+                            $email = $_SESSION['email'];
+                            $sql = <<<SQL
+                                SELECT data, horario, agenda.nome as nome_paciente, agenda.sexo, agenda.email
+                                FROM agenda INNER JOIN medico ON agenda.codigo_medico = medico.codigo
+                                INNER JOIN pessoa ON medico.codigo = pessoa.codigo
+                                WHERE pessoa.email = ?
+                                ORDER BY data
+                            SQL;
+
+                            $stmt = $pdo->prepare($sql);
+                            $stmt->execute([$email]);
+                            $counter = 1;
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                $data = htmlspecialchars($row["data"]);
+                                $data = date_format(date_create($data), 'd/m/Y');
+                                $horario = htmlspecialchars($row["horario"]);
+                                $nome_paciente = htmlspecialchars($row["nome_paciente"]);
+                                $sexo = htmlspecialchars($row["sexo"]);
+                                $email = htmlspecialchars($row["email"]);
+
+                                echo '<tr>';
+                                echo "<th scope=\"row\">{$counter}</th>";
+                                echo "<td>{$data}</td>";
+                                echo "<td>{$horario}h00</td>";
+                                echo '<td>';
+                                echo "{$nome_paciente}";
+                                echo '<div class="dropdown dropdown-menu-end d-inline ms-2">';
+                                echo '<button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">📃</button>';
+                                echo '<ul class="dropdown-menu">';
+                                echo "<li class=\"dropdown-item\">Sexo: {$sexo}</li>";
+                                echo "<li class=\"dropdown-item\">Email: {$email}</li>";
+                                echo '</ul>';
+                                echo '</div>';
+                                echo '</td>';
+                                echo '</tr>';
+                
+                                $counter = $counter + 1;
+                            }
+
+                        ?>
                     </tbody>
                 </table>
             </div>

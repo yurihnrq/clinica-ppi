@@ -184,15 +184,15 @@ exitWhenNotLogged($pdo);
 
                             $counter = 1;
                             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                $nome = $row["nome"];
-                                $email = $row["email"];
-                                $telefone = $row["telefone"];
-                                $cep = $row["cep"];
-                                $logradouro = $row["logradouro"];
-                                $cidade = $row["cidade"];
-                                $estado = $row["estado"];
-                                $especialidade = $row["especialidade"];
-                                $crm = $row["crm"];
+                                $nome = htmlspecialchars($row["nome"]);
+                                $email = htmlspecialchars($row["email"]);
+                                $telefone = htmlspecialchars($row["telefone"]);
+                                $cep = htmlspecialchars($row["cep"]);
+                                $logradouro = htmlspecialchars($row["logradouro"]);
+                                $cidade = htmlspecialchars($row["cidade"]);
+                                $estado = htmlspecialchars($row["estado"]);
+                                $especialidade = htmlspecialchars($row["especialidade"]);
+                                $crm = htmlspecialchars($row["crm"]);
 
                                 echo "<tr>";
                                 echo "<th scope=\"row\">{$counter}</th>";
